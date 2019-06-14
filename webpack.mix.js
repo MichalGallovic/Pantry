@@ -1,5 +1,16 @@
 const mix = require('laravel-mix');
-
+const tailwindcss = require('tailwindcss');
+const whitelister = require("purgecss-whitelister");
+const purgecss = require('@fullhuman/postcss-purgecss')({
+    content: [
+        "./resources/js/**/*.vue",
+        "./resources/views/**/*.php"
+    ],
+    whitelist: [
+        ...whitelister('node_modules/tailwindcss/dist/base.css')
+    ],
+    defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
+});
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,4 +23,19 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .less('resources/less/app.less', 'public/css')
+    .options({
+        hmrOptions: {
+            host: 'pantry.test'
+        },
+        postCss: [
+            tailwindcss('./tailwind.config.js'),
+            ...process.env.NODE_ENV === 'production' ? [purgecss] : []
+        ]
+    });
+
+mix.disableSuccessNotifications();
+
+if (mix.inProduction()) {
+    mix.version();
+}
