@@ -1,6 +1,6 @@
 <template>
-    <header class="sm:flex sm:flex-wrap sm:items-center sm:px-4">
-        <div class="flex items-center py-3 px-4 lg:w-auto">
+    <header class="sm:flex sm:flex-wrap sm:items-center">
+        <div class="flex items-center lg:w-auto">
             <div>
                 <router-link :to="{ name: 'in-stock' }"><AppLogo/></router-link>
             </div>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <nav :class="{ 'hidden': !isOpened, 'block': isOpened }" class="sm:block sm:bg-gray-100 sm:ml-auto lg:w-auto lg:py-4 lg:ml-auto">
-            <ul class="px-4 sm:flex text-right">
+            <ul class="sm:flex text-right">
                 <NavigationListItem text="In Stock" route="in-stock">
                 </NavigationListItem>
                 <NavigationListItem text="Recipes" route="recipes">
