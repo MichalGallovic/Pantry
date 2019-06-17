@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div></div>
         <Fridge></Fridge>
         <Pantry class="mt-8"></Pantry>
     </div>

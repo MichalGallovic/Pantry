@@ -1,33 +1,31 @@
 <template>
     <section>
         <div class="flex justify-between">
-            <h1 class="text-3xl font-bold text-gray-800">Fridge</h1>
+            <Heading text="Fridge"></Heading>
             <SearchBar></SearchBar>
         </div>
-        <div class="flex flex-col sm:flex-row sm:flex-wrap sm:-mx-2">
-            <Card
-                heading="Vlašské orechy"
-                sub-heading="400g"
-                left-bottom="4.2 eura"
-                icon-visible="true"
-            ></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card :inactive="true"></Card>
-            <Card></Card>
+        <div class="flex flex-row flex-wrap -mx-2">
+            <SquareItem></SquareItem>
+            <SquareItem></SquareItem>
+            <SquareItem></SquareItem>
+            <SquareItem></SquareItem>
+            <SquareItem></SquareItem>
+            <SquareItem></SquareItem>
+            <SquareItem></SquareItem>
         </div>
     </section>
 </template>
 
 <script>
-import Card from './Card';
 import SearchBar from './SearchBar';
+import SquareItem from './SquareItem';
+import Heading from './Heading';
 
 export default {
     components: {
-        Card,
-        SearchBar
+        Heading,
+        SearchBar,
+        SquareItem
     }
 };
 </script>

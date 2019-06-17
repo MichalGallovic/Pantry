@@ -3,6 +3,9 @@ module.exports = {
         extend: {
             fontFamily: {
                 'sans': ['Roboto', 'sans-serif']
+            },
+            spacing: {
+                '36': '9rem'
             }
         },
     },
