@@ -3,9 +3,7 @@
         <Heading text="Shopping list"></Heading>
         <div class="flex">
             <SearchBar></SearchBar>
-            <button class="w-10 flex-none text-center bg-gray-600 rounded rounded-lg ml-2">
-                <i class="fa fa-plus text-gray-100"></i>
-            </button>
+            <Button class="w-10 flex-none ml-2"><i class="fa fa-plus text-gray-100"></i></Button>
         </div>
         <ul class="mt-2 sm:mt-4">
             <ListItem></ListItem>
@@ -19,11 +17,13 @@
 import Heading from '../Heading';
 import SearchBar from '../SearchBar';
 import ListItem from '../ListItem';
+import Button from '../Button';
 
 export default {
     components: {
         Heading,
         SearchBar,
+        Button,
         ListItem
     }
 };
