@@ -2,7 +2,7 @@
     <section>
         <div class="flex justify-between">
             <Heading text="Recipes"></Heading>
-            <SearchBar></SearchBar>
+            <SearchBar class="ml-4"></SearchBar>
         </div>
         <div class="flex flex-col sm:flex-row sm:flex-wrap sm:-mx-2">
             <Card

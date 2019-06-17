@@ -2,7 +2,7 @@
     <section>
         <div class="flex justify-between">
             <Heading text="Fridge"></Heading>
-            <SearchBar></SearchBar>
+            <SearchBar class="ml-4"></SearchBar>
         </div>
         <div class="flex flex-row flex-wrap -mx-2">
             <SquareItem></SquareItem>

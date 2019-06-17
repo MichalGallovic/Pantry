@@ -1,5 +1,5 @@
 <template>
-    <div class="relative h-10 ml-4">
+    <div class="relative h-10">
         <div class="absolute inset-y-0 left-0 flex items-center pl-4">
             <i class="fa fa-search text-gray-600"></i>
         </div>
