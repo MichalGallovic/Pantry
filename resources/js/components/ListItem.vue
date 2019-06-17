@@ -1,0 +1,30 @@
+<template>
+    <li
+        class="flex items-center px-2 py-2 mt-2 rounded rounded-lg sm:w-1/2 lg:w-1/3 xl:w-1/4"
+        :class="{ 'bg-gray-600': !inactive, 'bg-gray-500': inactive }">
+        <Checkbox :checked="inactive" class="ml-2"></Checkbox>
+        <span
+            class="ml-4 text-gray-100"
+            :class="{ 'text-gray-300': inactive }"
+        >{{ text }}</span>
+        <i class="fa fa-times ml-auto mr-2 text-gray-100"></i>
+    </li>
+</template>
+
+<script>
+import Checkbox from './Checkbox';
+
+export default {
+    components: {
+        Checkbox
+    },
+    props: {
+        text: {
+            default: "List Item text"
+        },
+        inactive: {
+            default: false
+        }
+    }
+};
+</script>

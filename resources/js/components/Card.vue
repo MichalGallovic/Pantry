@@ -3,12 +3,10 @@
         <div
                 class="flex flex-col lg:w-56 h-40 rounded-lg p-4 hover:bg-gray-800"
                 :class="{ 'bg-gray-600': !inactive, 'bg-gray-500': inactive }">
-            <div class="flex justify-between">
+            <div class="flex justify-between items-center">
                 <h3 class="text-lg text-gray-100 w-full">{{ heading}}</h3>
-                <span v-if="iconVisible" class="inline-block text-right">
-                <span class="inline-flex rounded rounded-full h-5 w-5 bg-gray-100">
-                    <i class="fa fa-xs fa-check text-gray-800 m-auto" style="margin-top: 5px"></i>
-                </span>
+                <span class="inline-block text-right">
+                <Checkbox v-if="iconVisible" :checked="true"></Checkbox>
             </span>
             </div>
             <span class="text-sm text-gray-200">{{ subHeading }}</span>
@@ -18,7 +16,12 @@
 </template>
 
 <script>
+import Checkbox from './Checkbox';
+
 export default {
+    components: {
+        Checkbox
+    },
     props: {
         heading: {
             default: "Heading"
