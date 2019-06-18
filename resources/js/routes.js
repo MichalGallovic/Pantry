@@ -6,10 +6,10 @@ import Shops from './components/Routes/Shops';
 
 export default {
     mode: 'history',
-
+    base: '/app',
     routes: [
         {
-            path: '/',
+            path: '',
             component: InStock,
             name: 'in-stock'
         },

@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/{any}', function () {
+Auth::routes();
+
+Route::get('/app{any}', function () {
     return view('app');
 })->where('any', '.*');
