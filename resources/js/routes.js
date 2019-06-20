@@ -1,9 +1,13 @@
 import InStock from './components/Routes/InStock';
-import Recipes from './components/Routes/Recipes';
-import ShoppingList from './components/Routes/ShoppingList';
+import Recipes from './components/Routes/Recipes/Recipes';
+import CreateRecipe from './components/Routes/Recipes/CreateRecipe';
+import ShoppingLists from './components/Routes/ShoppingList/ShoppingLists';
+import ShowShoppingList from './components/Routes/ShoppingList/ShowShoppingList';
+import CreateShoppingList from './components/Routes/ShoppingList/CreateShoppingList';
 import Groceries from './components/Routes/Groceries/Groceries';
-import CreateGroceries from './components/Routes/Groceries/CreateGroceries';
-import Shops from './components/Routes/Shops';
+import CreateGrocery from './components/Routes/Groceries/CreateGrocery';
+import Shops from './components/Routes/Shops/Shops';
+import CreateShop from './components/Routes/Shops/CreateShop';
 
 export default {
     mode: 'history',
@@ -20,9 +24,23 @@ export default {
             name: 'recipes',
         },
         {
-            path: '/shopping-list',
-            component: ShoppingList,
-            name: 'shopping-list'
+            path: '/recipes/create',
+            name: 'recipes:create',
+            component: CreateRecipe
+        },
+        {
+            path: '/shopping-lists',
+            component: ShoppingLists,
+            name: 'shopping-lists'
+        },
+        {
+            path: '/shopping-lists/:id',
+            component: ShowShoppingList
+        },
+        {
+            path: '/shopping-lists/create',
+            component: CreateShoppingList,
+            name: 'shopping-lists:create'
         },
         {
             path: '/groceries',
@@ -32,12 +50,17 @@ export default {
         {
             path: '/groceries/create',
             name: 'groceries:create',
-            component: CreateGroceries
+            component: CreateGrocery
         },
         {
             path: '/shops',
             component: Shops,
             name: 'shops'
+        },
+        {
+            path: '/shops/create',
+            component: CreateShop,
+            name: 'shops:create'
         }
     ]
 };

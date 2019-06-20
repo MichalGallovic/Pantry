@@ -1,19 +1,21 @@
 <template>
     <section>
-        <Heading text="Pantry"></Heading>
-        <div class="flex flex-row flex-wrap -mx-2">
-            <GridSquareItem v-for="i in 5" :key="i"></GridSquareItem>
-        </div>
+        <Heading>Pantry</Heading>
+        <SquareGrid>
+            <SquareItem v-for="i in 5" :key="i" ></SquareItem>
+        </SquareGrid>
     </section>
 </template>
 
 <script>
-import GridSquareItem from './StyledComponents/GridSquareItem';
+import SquareGrid from './StyledComponents/SquareGrid';
+import SquareItem from './StyledComponents/SquareItem';
 import Heading from './StyledComponents/Heading';
 
 export default {
     components: {
-        GridSquareItem,
+        SquareGrid,
+        SquareItem,
         Heading
     }
 };

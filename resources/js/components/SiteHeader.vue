@@ -21,7 +21,7 @@
                 </NavigationListItem>
                 <NavigationListItem text="Recipes" route="recipes">
                 </NavigationListItem>
-                <NavigationListItem text="Shopping list" route="shopping-list">
+                <NavigationListItem text="Shopping list" route="shopping-lists">
                 </NavigationListItem>
                 <NavigationListItem text="Groceries" route="groceries">
                 </NavigationListItem>

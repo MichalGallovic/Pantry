@@ -18,11 +18,7 @@ class UnitTypeSeeder extends Seeder
                 UnitType::TEASPOON,
                 UnitType::TABLESPOON,
                 UnitType::FLUID_OUNCE,
-                UnitType::GILL,
                 UnitType::CUP,
-                UnitType::PINT,
-                UnitType::QUART,
-                UnitType::GALLON,
                 UnitType::ML,
                 UnitType::L,
                 UnitType::DL

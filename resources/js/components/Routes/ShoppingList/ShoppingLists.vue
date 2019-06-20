@@ -1,8 +1,8 @@
 <template>
     <section>
         <div class="flex">
-            <Heading>Groceries</Heading>
-            <router-link :to="{ name: 'groceries:create' }">
+            <Heading>Shopping lists</Heading>
+            <router-link :to="{ name: 'shopping-lists:create' }">
                 <PlusButton></PlusButton>
             </router-link>
             <SearchBar class="ml-auto"></SearchBar>

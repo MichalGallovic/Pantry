@@ -1,8 +1,8 @@
 <template>
     <section>
         <div class="flex">
-            <Heading>Groceries</Heading>
-            <router-link :to="{ name: 'groceries:create' }">
+            <Heading>Shops</Heading>
+            <router-link :to="{ name: 'shops:create' }">
                 <PlusButton></PlusButton>
             </router-link>
             <SearchBar class="ml-auto"></SearchBar>
@@ -18,8 +18,8 @@ import PlusButton from '../../StyledComponents/PlusButton';
 export default {
     components: {
         Heading,
-        PlusButton,
-        SearchBar
+        SearchBar,
+        PlusButton
     }
 };
 </script>

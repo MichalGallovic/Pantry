@@ -15,12 +15,13 @@ class CreateRecipeGroceryTable extends Migration
     {
         Schema::create('recipe_grocery', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->unsignedInteger('units');
             $table->unsignedBigInteger('recipe_id')->nullable();
             $table->foreign('recipe_id')->references('id')->on('recipes');
             $table->unsignedBigInteger('grocery_id')->nullable();
             $table->foreign('grocery_id')->references('id')->on('groceries');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

@@ -1,21 +1,21 @@
 <template>
     <section>
         <div class="flex">
-            <Heading text="Add Groceries"></Heading>
+            <Heading>Add Groceries</Heading>
         </div>
         <div class="flex flex-wrap">
-            <form class="mt-4 md:w-1/2">
+            <form class="mt-4 w-full sm:w-1/2">
                 <div>
                     <Label class="block">Grocery name</Label>
                     <TextInput v-model="name" class="mt-2 w-full block" placeholder="Vlašské orechy"></TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Expiration in days</Label>
-                    <TextInput class="mt-2 w-full block" placeholder="30"></TextInput>
+                    <TextInput class="mt-2 w-1/2 block" placeholder="30"></TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Price</Label>
-                    <TextInput class="mt-2 w-full block" placeholder="20"></TextInput>
+                    <TextInput class="mt-2 w-1/2 block" placeholder="20"></TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Shop</Label>
@@ -32,7 +32,7 @@
                     <Button type="submit">Save</Button>
                 </div>
             </form>
-            <div class="ml-8 mt-4">
+            <div class="hidden sm:block ml-8 mt-4">
                 <TextLabel class="block">Grocery item preview</TextLabel>
                 <SquareItem
                     class="mt-2 w-40"

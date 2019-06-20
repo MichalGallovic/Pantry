@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full sm:px-2 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mt-2 sm:mt-4 cursor-pointer">
+    <div class="cursor-pointer">
         <div
                 class="flex flex-col lg:w-56 h-40 rounded-lg p-4 hover:bg-gray-800"
                 :class="{ 'bg-gray-600': !inactive, 'bg-gray-500': inactive }">

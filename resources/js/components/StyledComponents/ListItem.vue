@@ -1,6 +1,6 @@
 <template>
     <li
-        class="flex items-center px-2 py-2 mt-2 rounded rounded-lg sm:w-1/2 lg:w-1/3 xl:w-1/4 cursor-pointer hover:bg-gray-800"
+        class="flex items-center px-2 py-2 rounded rounded-lg cursor-pointer hover:bg-gray-800"
         :class="{ 'bg-gray-600': !inactive, 'bg-gray-500': inactive }">
         <Checkbox :checked="inactive" class="ml-2"></Checkbox>
         <span
