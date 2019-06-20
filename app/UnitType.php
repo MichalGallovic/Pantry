@@ -10,11 +10,7 @@ class UnitType extends Model
     const TEASPOON = 'tsp';
     const TABLESPOON = 'tbsp';
     const FLUID_OUNCE = 'fl_oz';
-    const GILL = 'gill';
     const CUP = 'cup';
-    const PINT = 'pt';
-    const QUART = 'qt';
-    const GALLON = 'gal';
     // milliliter
     const ML = 'ml';
     // liter
