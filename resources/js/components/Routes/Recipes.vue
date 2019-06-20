@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import Heading from '../Heading';
+import Heading from '../StyledComponents/Heading';
 import SearchBar from '../SearchBar';
-import Card from '../Card';
+import Card from '../StyledComponents/Card';
 
 export default {
     components: {

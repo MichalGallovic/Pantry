@@ -1,7 +1,8 @@
 import InStock from './components/Routes/InStock';
 import Recipes from './components/Routes/Recipes';
 import ShoppingList from './components/Routes/ShoppingList';
-import Groceries from './components/Routes/Groceries';
+import Groceries from './components/Routes/Groceries/Groceries';
+import CreateGroceries from './components/Routes/Groceries/CreateGroceries';
 import Shops from './components/Routes/Shops';
 
 export default {
@@ -16,7 +17,7 @@ export default {
         {
             path: '/recipes',
             component: Recipes,
-            name: 'recipes'
+            name: 'recipes',
         },
         {
             path: '/shopping-list',
@@ -27,6 +28,11 @@ export default {
             path: '/groceries',
             component: Groceries,
             name: 'groceries'
+        },
+        {
+            path: '/groceries/create',
+            name: 'groceries:create',
+            component: CreateGroceries
         },
         {
             path: '/shops',

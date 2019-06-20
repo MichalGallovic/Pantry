@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 const whitelister = require("purgecss-whitelister");
+
 const purgecss = require('@fullhuman/postcss-purgecss')({
     content: [
         "./resources/js/**/*.vue",
@@ -30,6 +31,7 @@ mix.js('resources/js/app.js', 'public/js')
         },
         postCss: [
             tailwindcss('./tailwind.config.js'),
+
             ...process.env.NODE_ENV === 'production' ? [purgecss] : []
         ]
     });

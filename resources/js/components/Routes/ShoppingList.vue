@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import Heading from '../Heading';
+import Heading from '../StyledComponents/Heading';
 import SearchBar from '../SearchBar';
-import ListItem from '../ListItem';
-import Button from '../Button';
+import ListItem from '../StyledComponents/ListItem';
+import Button from '../StyledComponents/Button';
 
 export default {
     components: {

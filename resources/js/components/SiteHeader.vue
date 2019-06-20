@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import AppLogo from './AppLogo';
+import AppLogo from './StyledComponents/AppLogo';
 import NavigationListItem from './NavigationListItem'
 
 export default {

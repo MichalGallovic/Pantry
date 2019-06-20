@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Heading from '../Heading';
+import Heading from '../StyledComponents/Heading';
 import SearchBar from '../SearchBar';
 
 export default {
