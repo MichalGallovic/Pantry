@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ShopApiController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
@@ -23,22 +24,24 @@ Route::get('/', function (Router $router) {
     })->values();   
 });
 
-Route::resource('groceries', 'GroceryAPIController', [
-    'only' => ['index', 'show', 'store', 'update', 'delete']
-]);
+Route::name('api.')->group(function () {
+//    Route::resource('groceries', 'GroceryAPIController', [
+//        'only' => ['index', 'show', 'store', 'update', 'delete']
+//    ]);
+//
+//    Route::resource('recipes', 'RecipeAPIController', [
+//        'only' => ['index', 'show', 'store', 'update', 'delete']
+//    ]);
 
-Route::resource('recipes', 'RecipeAPIController', [
-    'only' => ['index', 'show', 'store', 'update', 'delete']
-]);
-
-Route::resource('shops', 'ShopAPIController', [
-    'only' => ['index', 'show', 'store', 'update', 'delete']
-]);
-
-Route::resource('shoppingLists', 'ShoppingListAPIController', [
-    'only' => ['index', 'show', 'store', 'update', 'delete']
-]);
-
-Route::resource('shoppingListItems', 'ShoppingListItemAPIController', [
-    'only' => ['index', 'show', 'store', 'update', 'delete']
-]);
+    Route::resource('shops', ShopApiController::class, [
+        'only' => ['index', 'show', 'store', 'update', 'destroy']
+    ]);
+//
+//    Route::resource('shoppingLists', 'ShoppingListAPIController', [
+//        'only' => ['index', 'show', 'store', 'update', 'delete']
+//    ]);
+//
+//    Route::resource('shoppingListItems', 'ShoppingListItemAPIController', [
+//        'only' => ['index', 'show', 'store', 'update', 'delete']
+//    ]);
+});

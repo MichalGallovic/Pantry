@@ -8,7 +8,7 @@
 
         <ul class="mt-2 sm:mt-4">
             <Draggable>
-                <ListItem v-for="i in 4" class="sm:w-1/2 lg:w-1/3 xl:w-1/4 mt-2"></ListItem>
+                <ListItem v-for="i in 4" :key="i" class="sm:w-1/2 lg:w-1/3 xl:w-1/4 mt-2"></ListItem>
             </Draggable>
         </ul>
     </section>
