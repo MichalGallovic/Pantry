@@ -15,15 +15,15 @@ class ShopApiTest extends ApiTestCase
     public function test_shop_pagination()
     {
         /** @var Collection $shops */
-        $shops = factory(Shop::class, 10)->create();
+        $shops = factory(Shop::class, 20)->create();
 
         $response = $this->get(route('api.shops.index'));
 
-        $this->assertResponse($response, collect($shops)->slice(0, 4)->values()->toArray());
+        $this->assertResponse($response, collect($shops)->slice(0, 10)->values()->toArray());
 
         $response = $this->json('GET', route('api.shops.index'), ['page' => 2]);
 
-        $this->assertResponse($response, collect($shops)->slice(5, 9)->values()->toArray());
+        $this->assertResponse($response, collect($shops)->slice(10, 20)->values()->toArray());
     }
 
     public function test_create_shop()

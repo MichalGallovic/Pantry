@@ -4,16 +4,16 @@
         :class="{ 'bg-gray-600': !inactive, 'bg-gray-500': inactive }">
         <Checkbox :checked="inactive" class="ml-2"></Checkbox>
         <span
-            class="ml-4 text-gray-100"
-            :class="{ 'text-gray-300': inactive }"
+                class="ml-4 text-gray-100"
+                :class="{ 'text-gray-300': inactive }"
         >{{ text }}</span>
-        <CloseIcon class="ml-auto mr-2"></CloseIcon>
+        <CloseIcon class="ml-auto mr-2 text-gray-200"></CloseIcon>
     </li>
 </template>
 
 <script>
-import Checkbox from './Checkbox';
-import CloseIcon from './CloseIcon';
+import Checkbox from '../Checkbox';
+import CloseIcon from '../CloseIcon';
 
 export default {
     components: {

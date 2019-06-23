@@ -8,6 +8,7 @@ import Groceries from './components/Routes/Groceries/Groceries';
 import CreateGrocery from './components/Routes/Groceries/CreateGrocery';
 import Shops from './components/Routes/Shops/Shops';
 import CreateShop from './components/Routes/Shops/CreateShop';
+import ShowShop from "./components/Routes/Shops/ShowShop";
 
 export default {
     mode: 'history',
@@ -25,7 +26,7 @@ export default {
         },
         {
             path: '/recipes/create',
-            name: 'recipes:create',
+            name: 'recipes.create',
             component: CreateRecipe
         },
         {
@@ -35,12 +36,13 @@ export default {
         },
         {
             path: '/shopping-lists/:id',
-            component: ShowShoppingList
+            component: ShowShoppingList,
+            name: 'shopping-lists.show'
         },
         {
             path: '/shopping-lists/create',
             component: CreateShoppingList,
-            name: 'shopping-lists:create'
+            name: 'shopping-lists.create'
         },
         {
             path: '/groceries',
@@ -49,7 +51,7 @@ export default {
         },
         {
             path: '/groceries/create',
-            name: 'groceries:create',
+            name: 'groceries.create',
             component: CreateGrocery
         },
         {
@@ -60,7 +62,13 @@ export default {
         {
             path: '/shops/create',
             component: CreateShop,
-            name: 'shops:create'
+            name: 'shops.create'
+        },
+        {
+            path: '/shops/:id',
+            component: ShowShop,
+            name: 'shops.show',
+            props: true
         }
     ]
 };

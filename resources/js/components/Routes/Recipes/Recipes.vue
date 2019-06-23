@@ -2,7 +2,7 @@
     <section>
         <div class="flex">
             <Heading>Recipes</Heading>
-            <router-link :to="{ name: 'recipes:create' }">
+            <router-link :to="{ name: 'recipes.create' }">
                 <PlusButton></PlusButton>
             </router-link>
             <SearchBar class="ml-auto"></SearchBar>

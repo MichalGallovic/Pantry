@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class ApiController
 {
     /** @var int */
-    protected $pagination = 5;
+    protected $pagination = 10;
 
     /**
      * @param ResourceCollection $collection

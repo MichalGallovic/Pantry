@@ -60,7 +60,7 @@ import TextLabel from '../../StyledComponents/TextLabel';
 import Button from '../../StyledComponents/Button';
 import Card from '../../StyledComponents/Card';
 import SearchBar from '../../SearchBar';
-import ListItem from '../../StyledComponents/ListItem';
+import ListItem from '../../StyledComponents/ListItem/InteractiveListItem';
 import Draggable from 'vuedraggable';
 
 export default {

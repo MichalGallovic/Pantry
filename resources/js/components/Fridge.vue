@@ -17,7 +17,7 @@ import SearchBar from './SearchBar';
 import SquareGrid from './StyledComponents/SquareGrid';
 import SquareItem from './StyledComponents/SquareItem';
 import Heading from './StyledComponents/Heading';
-import Modal from './StyledComponents/Modal';
+import Modal from './StyledComponents/Modals/Modal';
 
 export default {
     components: {

@@ -5,7 +5,10 @@ module.exports = {
                 'sans': ['Roboto', 'sans-serif']
             },
             spacing: {
-                '36': '9rem'
+                '36': '9rem',
+                '128': '32rem',
+                '192': '48rem',
+                '256': '64rem'
             }
         },
     },
