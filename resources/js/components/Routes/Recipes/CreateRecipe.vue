@@ -18,7 +18,7 @@
                     <TextInput class="mt-2 w-1/2 block" placeholder="20"></TextInput>
                 </div>
                 <div class="mt-2">
-                    <TextLabel>Potraviny</TextLabel>
+                    <TextLabel>Groceries</TextLabel>
                     <div class="flex">
                         <SearchBar class="w-full"></SearchBar>
                         <Button class="flex-none ml-2"><i class="fa fa-plus text-gray-100"></i></Button>
@@ -56,8 +56,8 @@ import Label from '../../StyledComponents/Form/Label';
 import TextInput from '../../StyledComponents/Form/TextInput';
 import SelectInput from '../../StyledComponents/Form/SelectInput';
 import SquareItem from '../../StyledComponents/SquareItem';
-import TextLabel from '../../StyledComponents/TextLabel';
-import Button from '../../StyledComponents/Button';
+import TextLabel from '../../StyledComponents/Form/TextLabel';
+import Button from '../../StyledComponents/Buttons/Button';
 import Card from '../../StyledComponents/Card';
 import SearchBar from '../../SearchBar';
 import ListItem from '../../StyledComponents/ListItem/InteractiveListItem';

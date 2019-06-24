@@ -18,7 +18,7 @@
 import Heading from '../../StyledComponents/Heading';
 import SearchBar from '../../SearchBar';
 import ListItem from '../../StyledComponents/ListItem/InteractiveListItem';
-import Button from '../../StyledComponents/Button';
+import Button from '../../StyledComponents/Buttons/Button';
 import Draggable from 'vuedraggable';
 
 export default {

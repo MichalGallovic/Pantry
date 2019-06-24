@@ -12,6 +12,9 @@ export default {
     createShop(payload) {
         return Repository.post(`${resource}`, payload).then(data => data.data);
     },
+    updateShop(payload, id) {
+        return Repository.put(`${resource}/${id}`, payload);
+    },
     delete(id) {
         return Repository.delete(`${resource}/${id}`).then(data => data.data);
     }

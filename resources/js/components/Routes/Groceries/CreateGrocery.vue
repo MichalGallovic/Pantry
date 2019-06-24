@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="mt-4 text-right">
-                    <Button type="submit">Save</Button>
+                    <Button class="btn-grey" type="submit">Save</Button>
                 </div>
             </form>
             <div class="hidden sm:block ml-8 mt-4">
@@ -50,8 +50,8 @@ import Label from '../../StyledComponents/Form/Label';
 import TextInput from '../../StyledComponents/Form/TextInput';
 import SelectInput from '../../StyledComponents/Form/SelectInput';
 import SquareItem from '../../StyledComponents/SquareItem';
-import TextLabel from '../../StyledComponents/TextLabel';
-import Button from '../../StyledComponents/Button';
+import TextLabel from '../../StyledComponents/Form/TextLabel';
+import Button from '../../StyledComponents/Buttons/Button';
 
 export default {
     components: {

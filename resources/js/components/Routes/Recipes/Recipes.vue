@@ -25,7 +25,7 @@
 
 <script>
 import Heading from '../../StyledComponents/Heading';
-import PlusButton from '../../StyledComponents/PlusButton';
+import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import SearchBar from '../../SearchBar';
 import CardGrid from '../../StyledComponents/CardGrid';
 import Card from '../../StyledComponents/Card';

@@ -25,7 +25,7 @@ class ShopRepository
      */
     public function paginate($perPage = 10)
     {
-        return $this->shop->paginate($perPage);
+        return $this->shop->orderByDesc('updated_at')->paginate($perPage);
     }
 
     /**

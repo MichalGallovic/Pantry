@@ -25,13 +25,28 @@
 <script>
 import BackDrop from './Backdrop';
 import CloseIcon from '../CloseIcon';
-import Button from '../Button';
+import Button from '../Buttons/Button';
+
+let eventListener = null;
 
 export default {
     components: {
         BackDrop,
         CloseIcon,
         Button
+    },
+    methods: {
+        handleEscape(event) {
+            if (event.code === 'Escape') {
+                this.$emit('cancel');
+            }
+        }
+    },
+    mounted() {
+        eventListener = window.addEventListener('keyup', this.handleEscape);
+    },
+    beforeDestroy() {
+        window.removeEventListener('keyup', this.handleEscape);
     }
 };
 </script>

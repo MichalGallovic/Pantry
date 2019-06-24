@@ -1,15 +1,15 @@
 <template>
     <section>
-        <Heading>Add shop</Heading>
-        <div class="flex flex-wrap mt-4">
-            <form class="w-full sm:w-1/2" @submit.prevent="createShop">
+        <Heading>Edit shop</Heading>
+        <div v-if="shop" class="flex flex-wrap mt-4">
+            <form class="w-full sm:w-1/2 sm:pr-8" @submit.prevent="updateShop">
                 <div>
                     <Label class="block">Shop name</Label>
                     <TextInput
-                        v-model="name"
-                        :errors="errorMessages.name"
-                        class="mt-2 w-full block"
-                        placeholder="Kaufland">
+                            v-model="shop.name"
+                            :errors="errorMessages.name"
+                            class="mt-2 w-full"
+                            placeholder="Kaufland">
                     </TextInput>
                 </div>
                 <div class="mt-2">
@@ -26,9 +26,9 @@
                     <Button class="btn-grey" type="submit">Save</Button>
                 </div>
             </form>
-            <div class="hidden sm:block ml-8 mt-4">
+            <div v-if="shop" class="hidden sm:block sm:w-1/2">
                 <TextLabel class="block">Shop preview</TextLabel>
-                <Card :heading="name"></Card>
+                <Card :heading="shop.name"></Card>
             </div>
         </div>
     </section>
@@ -51,6 +51,7 @@ const ShopRepository = RepositoryFactory.get('shop');
 
 export default {
     mixins: [FormHandling],
+    props: ['id'],
     components: {
         ListItem,
         Heading,
@@ -64,17 +65,22 @@ export default {
     },
     data () {
         return {
-            name: null,
+            shop: null,
             groceries: []
         }
     },
+    created() {
+        this.fetchShop();
+    },
     methods: {
-        async createShop() {
-
+        async fetchShop() {
+            const { data } = await ShopRepository.find(this.id);
+            this.isLoading = false;
+            this.shop = data;
+        },
+        async updateShop() {
             try {
-                await ShopRepository.createShop({
-                    name: this.name
-                });
+                await ShopRepository.updateShop({ name: this.shop.name }, this.id);
                 this.$router.push({ name: 'shops'});
             } catch (error) {
                 this.handleErrors(error);
@@ -83,4 +89,3 @@ export default {
     }
 };
 </script>
-

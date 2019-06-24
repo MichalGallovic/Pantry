@@ -7,25 +7,28 @@
             </router-link>
             <SearchBar class="ml-auto"></SearchBar>
         </div>
-        <ul class="mt-2 sm:mt-4 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+        <div class="mt-2 sm:mt-4">
             <Loading v-if="isLoading">Loading shops ...</Loading>
-            <router-link
-                v-for="shop in shops"
-                :key="shop.id"
-                :to="{ name: 'shops.show', params: { id: shop.id } }">
-                <ListItem :text="shop.name" class="mt-2">
-                </ListItem>
-            </router-link>
-        </ul>
+            <CardGrid>
+                <router-link
+                    :to="{ name: 'shops.show', params: { 'id': shop.id} }"
+                    v-for="shop in shops"
+                    :key="shop.id"
+                >
+                    <Card :heading="shop.name"></Card>
+                </router-link>
+            </CardGrid>
+        </div>
     </section>
 </template>
 
 <script>
 import Heading from '../../StyledComponents/Heading';
 import SearchBar from '../../SearchBar';
-import PlusButton from '../../StyledComponents/PlusButton';
-import ListItem from '../../StyledComponents/ListItem/ListItem';
+import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import Loading from '../../Loading';
+import CardGrid from '../../StyledComponents/CardGrid';
+import Card from '../../StyledComponents/Card';
 import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
 
 const ShopRepository = RepositoryFactory.get('shop');
@@ -36,7 +39,8 @@ export default {
         SearchBar,
         PlusButton,
         Loading,
-        ListItem
+        CardGrid,
+        Card
     },
     data () {
         return {

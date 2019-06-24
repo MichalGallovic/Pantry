@@ -9,6 +9,7 @@ import CreateGrocery from './components/Routes/Groceries/CreateGrocery';
 import Shops from './components/Routes/Shops/Shops';
 import CreateShop from './components/Routes/Shops/CreateShop';
 import ShowShop from "./components/Routes/Shops/ShowShop";
+import EditShop from './components/Routes/Shops/EditShop';
 
 export default {
     mode: 'history',
@@ -69,6 +70,12 @@ export default {
             component: ShowShop,
             name: 'shops.show',
             props: true
-        }
+        },
+        {
+            path: '/shops/:id/edit',
+            component: EditShop,
+            name: 'shops.edit',
+            props: true
+        },
     ]
 };

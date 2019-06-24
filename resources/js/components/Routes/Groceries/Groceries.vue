@@ -13,7 +13,7 @@
 <script>
 import Heading from '../../StyledComponents/Heading';
 import SearchBar from '../../SearchBar';
-import PlusButton from '../../StyledComponents/PlusButton';
+import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 
 export default {
     components: {

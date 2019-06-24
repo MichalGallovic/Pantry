@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateShopRequest;
 use App\Http\Requests\StoreShopRequest;
 use App\Http\Resources\ShopCollection;
 use App\Http\Resources\ShopResource;
@@ -45,7 +45,7 @@ class ShopApiController extends ApiController
         return $this->respondWithResource(new ShopResource($shop), JsonResponse::HTTP_CREATED);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateShopRequest $request, $id)
     {
         $shop = $this->shop->update($request->get('name'), $id);
 
