@@ -43,4 +43,12 @@ class UnitType extends Model
     const F = 'F';
 
     public $timestamps = false;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groceries()
+    {
+        return $this->hasMany(Grocery::class);
+    }
 }

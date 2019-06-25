@@ -25,24 +25,24 @@ class Grocery extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $casts = [
-        //
-    ];    
-
     public function shop()
     {
         return $this->belongsTo(\App\Shop::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function recipes()
     {
         return $this->belongsToMany(\App\Recipe::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function unitType()
     {
         return $this->belongsTo(UnitType::class);

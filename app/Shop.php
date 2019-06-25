@@ -15,8 +15,6 @@ class Shop extends Model
         'name'
     ];
 
-
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -26,9 +24,8 @@ class Shop extends Model
         'created_at', 'updated_at'
     ];
 
-
     /**
-     * Get the Groceries for the Shop.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function groceries()
     {
