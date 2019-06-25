@@ -58,10 +58,19 @@ class GroceryApiTest extends ApiTestCase
 
     public function test_can_retrieve_grocery_by_id()
     {
-        $this->withoutExceptionHandling();
         $grocery = factory(Grocery::class)->create();
 
         $response = $this->get(route('api.groceries.show', $grocery->id));
+
+        $this->assertResponse($response, $grocery->toArray());
+    }
+
+    public function test_can_retrieve_single_grocery_relations()
+    {
+        factory(Grocery::class)->create();
+        $grocery = Grocery::with('shop')->first();
+
+        $response = $this->json('GET', route('api.groceries.show', $grocery->id), ['embed' => 'unit-type,shop']);
 
         $this->assertResponse($response, $grocery->toArray());
     }

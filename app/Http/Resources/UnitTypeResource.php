@@ -17,7 +17,8 @@ class UnitTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'shorthand' => $this->shorthand,
-            'category' => $this->category
+            'category' => $this->category,
+            'groceries' => GroceryResource::collection($this->whenLoaded('groceries'))
         ];
     }
 }

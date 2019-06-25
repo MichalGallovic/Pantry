@@ -54,6 +54,16 @@ class ShopApiTest extends ApiTestCase
         $this->assertResponse($response, $shop->toArray());
     }
 
+    public function test_can_retrieve_shop_relations()
+    {
+        factory(Shop::class)->create();
+        $shop = Shop::with('groceries')->first();
+
+        $response = $this->json('GET', route('api.shops.show', $shop->id), ['embed' => 'groceries']);
+
+        $this->assertResponse($response, $shop->toArray());
+    }
+
     public function test_returns_error_on_unknown_shop()
     {
         $response = $this->get(route('api.shops.show', 1));

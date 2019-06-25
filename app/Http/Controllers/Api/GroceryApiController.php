@@ -51,13 +51,16 @@ class GroceryApiController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param string $id
      *
      * @return JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $grocery = $this->grocery->findOrFail($id);
+        $relations = $this->getEmbeddedRelations($request);
+
+        $grocery = $this->grocery->withRelations($relations)->findOrFail($id);
 
         return $this->respondWithResource(new GroceryResource($grocery));
     }

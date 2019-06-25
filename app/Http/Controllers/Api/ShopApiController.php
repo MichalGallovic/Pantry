@@ -38,13 +38,16 @@ class ShopApiController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param string $id
      *
      * @return JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $shop = $this->shop->findOrFail($id);
+        $relations = $this->getEmbeddedRelations($request);
+
+        $shop = $this->shop->withRelations($relations)->findOrFail($id);
 
         return $this->respondWithResource(new ShopResource($shop));
     }

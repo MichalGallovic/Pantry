@@ -5,16 +5,13 @@ namespace App\Repositories;
 use App\Contracts\Repository;
 use App\Grocery;
 
-class GroceryRepository implements Repository
+class GroceryRepository extends EloquentRepository implements Repository
 {
     /** @var Grocery */
     private $grocery;
 
     /** @var array */
-    private $withRelations = [];
-
-    /** @var array */
-    private $allowedRelations = [
+    protected $allowedRelations = [
         'unitType' => 'unit-type',
         'shop' => 'shop'
     ];
@@ -25,17 +22,6 @@ class GroceryRepository implements Repository
     public function __construct(Grocery $grocery)
     {
         $this->grocery = $grocery;
-    }
-
-    /**
-     * @param array $relations
-     *
-     * @return $this
-     */
-    public function withRelations(array $relations)
-    {
-        $this->withRelations = array_keys(array_intersect($this->allowedRelations, $relations));
-        return $this;
     }
 
     /**
@@ -65,6 +51,10 @@ class GroceryRepository implements Repository
      */
     public function find($id)
     {
+        if ($this->withRelations) {
+            return $this->grocery->with($this->withRelations)->find($id);
+        }
+
         return $this->grocery->find($id);
     }
 
@@ -73,6 +63,10 @@ class GroceryRepository implements Repository
      */
     public function findOrFail($id)
     {
+        if ($this->withRelations) {
+            return $this->grocery->with($this->withRelations)->findOrFail($id);
+        }
+
         return $this->grocery->findOrFail($id);
     }
 

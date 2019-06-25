@@ -12,6 +12,7 @@ class ShopSeeder extends Seeder
      */
     public function run()
     {
-        factory(Shop::class, 10)->create();
+        factory(Shop::class)->create(['name' => 'Lidl']);
+        factory(Shop::class)->create(['name' => 'Kaufland']);
     }
 }

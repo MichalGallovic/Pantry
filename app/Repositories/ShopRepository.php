@@ -4,18 +4,15 @@ namespace App\Repositories;
 
 use App\Contracts\Repository;
 use App\Shop;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 
-class ShopRepository implements Repository
+class ShopRepository extends EloquentRepository implements Repository
 {
     /** @var Shop */
     private $shop;
 
     /** @var array */
-    private $withRelations = [];
-
-    /** @var array */
-    private $allowedRelations = [
+    protected $allowedRelations = [
         'groceries' => 'groceries'
     ];
 
@@ -25,17 +22,6 @@ class ShopRepository implements Repository
     public function __construct(Shop $shop)
     {
         $this->shop = $shop;
-    }
-
-    /**
-     * @param array $relations
-     *
-     * @return $this
-     */
-    public function withRelations(array $relations)
-    {
-        $this->withRelations = array_keys(array_intersect($this->allowedRelations, $relations));
-        return $this;
     }
 
     /**
@@ -53,6 +39,18 @@ class ShopRepository implements Repository
     }
 
     /**
+     * @return Collection
+     */
+    public function all()
+    {
+        if ($this->withRelations) {
+            return $this->shop->with($this->withRelations)->all();
+        }
+
+        return $this->shop->all();
+    }
+
+    /**
      * @inheritDoc
      */
     public function create($attributes)
@@ -65,6 +63,10 @@ class ShopRepository implements Repository
      */
     public function find($id)
     {
+        if ($this->withRelations) {
+            return $this->shop->with($this->withRelations)->find($id);
+        }
+
         return $this->shop->find($id);
     }
 
@@ -73,6 +75,10 @@ class ShopRepository implements Repository
      */
     public function findOrFail($id)
     {
+        if ($this->withRelations) {
+            return $this->shop->with($this->withRelations)->findOrFail($id);
+        }
+
         return $this->shop->findOrFail($id);
     }
 
