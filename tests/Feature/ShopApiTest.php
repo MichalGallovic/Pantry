@@ -4,13 +4,13 @@ namespace Tests\Feature;
 
 use App\Shop;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
 use Tests\ApiTestCase;
 
 class ShopApiTest extends ApiTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function test_shop_pagination()
     {

@@ -7,7 +7,7 @@
                 <Card class="w-64" :heading="shop.name"></Card>
                 <div class="mt-4">
                     <router-link :to="{ name: 'shops.edit', params: { id: shop.id } }"><Button class="btn-grey">Edit</Button></router-link>
-                    <Button class="text-red-600" @click.native="askQuestion = true">Delete</Button>
+                    <Button class="text-gray-600" @click.native="askQuestion = true">Delete</Button>
                 </div>
             </div>
             <div class="w-full md:w-1/2 mt-4">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -10,6 +11,16 @@ class ApiController
 {
     /** @var int */
     protected $pagination = 10;
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    protected function getEmbeddedRelations(Request $request)
+    {
+        return explode(',', $request->get('embed'));
+    }
 
     /**
      * @param ResourceCollection $collection

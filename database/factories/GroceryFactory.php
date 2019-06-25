@@ -2,9 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Grocery;
-use Illuminate\Support\Str;
+use App\Shop;
+use App\UnitType;
+use App\UnitTypeCategory;
 use Faker\Generator as Faker;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,12 @@ $factory->define(Grocery::class, function (Faker $faker) {
         'name' => $faker->name(),
         'expiration_days' => random_int(3, 60),
         'units' => random_int(1, 500),
-        'unit_type' => $faker->sentence(),
-        'price' => $faker->randomFloat(),
-        'shop_id' => random_int(1, 10)
+        'unit_type_id' => function () {
+            return factory(UnitType::class)->create()->id;
+        },
+        'price' => $faker->randomNumber(2),
+        'shop_id' => function () {
+            return factory(Shop::class)->create()->id;
+        }
     ];
 });

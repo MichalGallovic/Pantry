@@ -3,28 +3,28 @@
 namespace App\Repositories;
 
 use App\Contracts\Repository;
-use App\Shop;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Grocery;
 
-class ShopRepository implements Repository
+class GroceryRepository implements Repository
 {
-    /** @var Shop */
-    private $shop;
+    /** @var Grocery */
+    private $grocery;
 
     /** @var array */
     private $withRelations = [];
 
     /** @var array */
     private $allowedRelations = [
-        'groceries' => 'groceries'
+        'unitType' => 'unit-type',
+        'shop' => 'shop'
     ];
 
     /**
-     * @param Shop $shop
+     * @param Grocery $grocery
      */
-    public function __construct(Shop $shop)
+    public function __construct(Grocery $grocery)
     {
-        $this->shop = $shop;
+        $this->grocery = $grocery;
     }
 
     /**
@@ -43,13 +43,13 @@ class ShopRepository implements Repository
      */
     public function paginate($perPage = 10)
     {
-        $shop = $this->shop->orderByDesc('updated_at');
+        $query = $this->grocery->orderByDesc('updated_at');
 
         if ($this->withRelations) {
-            $shop = $shop->with($this->withRelations);
+            $query = $query->with($this->withRelations);
         }
 
-        return $shop->paginate($perPage);
+        return $query->paginate($perPage);
     }
 
     /**
@@ -57,7 +57,7 @@ class ShopRepository implements Repository
      */
     public function create($attributes)
     {
-        return $this->shop->create($attributes);
+        return $this->grocery->create($attributes);
     }
 
     /**
@@ -65,7 +65,7 @@ class ShopRepository implements Repository
      */
     public function find($id)
     {
-        return $this->shop->find($id);
+        return $this->grocery->find($id);
     }
 
     /**
@@ -73,7 +73,7 @@ class ShopRepository implements Repository
      */
     public function findOrFail($id)
     {
-        return $this->shop->findOrFail($id);
+        return $this->grocery->findOrFail($id);
     }
 
     /**
@@ -81,11 +81,11 @@ class ShopRepository implements Repository
      */
     public function update($attributes, $id)
     {
-        $shop = $this->findOrFail($id);
+        $grocery = $this->findOrFail($id);
 
-        $shop->update($attributes);
+        $grocery->update($attributes);
 
-        return $shop;
+        return $grocery;
     }
 
     /**
@@ -93,8 +93,8 @@ class ShopRepository implements Repository
      */
     public function deleteById($id)
     {
-        $shop = $this->findOrFail($id);
+        $grocery = $this->findOrFail($id);
 
-        $shop->delete();
+        $grocery->delete();
     }
 }

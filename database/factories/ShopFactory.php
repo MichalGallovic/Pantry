@@ -2,9 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Shop;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------

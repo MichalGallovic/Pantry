@@ -21,7 +21,7 @@ class Grocery extends Model
      * @var array
      */
     protected $hidden = [
-        //
+        'created_at', 'updated_at', 'unit_type_id', 'shop_id'
     ];
 
     /**

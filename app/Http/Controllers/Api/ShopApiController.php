@@ -8,6 +8,7 @@ use App\Http\Resources\ShopCollection;
 use App\Http\Resources\ShopResource;
 use App\Repositories\ShopRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ShopApiController extends ApiController
 {
@@ -22,13 +23,25 @@ class ShopApiController extends ApiController
         $this->shop = $shop;
     }
 
-    public function index()
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function index(Request $request)
     {
-        $shops = $this->shop->paginate($this->pagination);
+        $relations = $this->getEmbeddedRelations($request);
 
-        return $this->respondWithCollection(new ShopCollection($shops));
+        $shops = $this->shop->withRelations($relations)->paginate($this->pagination);
+
+        return $this->respondWithCollection(ShopResource::collection($shops));
     }
 
+    /**
+     * @param string $id
+     *
+     * @return JsonResponse
+     */
     public function show($id)
     {
         $shop = $this->shop->findOrFail($id);
@@ -36,22 +49,40 @@ class ShopApiController extends ApiController
         return $this->respondWithResource(new ShopResource($shop));
     }
 
+    /**
+     * @param StoreShopRequest $request
+     *
+     * @return JsonResponse
+     */
     public function store(StoreShopRequest $request)
     {
         $attributes = $request->validated();
 
-        $shop = $this->shop->create($attributes['name']);
+        $shop = $this->shop->create($attributes);
 
         return $this->respondWithResource(new ShopResource($shop), JsonResponse::HTTP_CREATED);
     }
 
+    /**
+     * @param UpdateShopRequest $request
+     * @param string            $id
+     *
+     * @return JsonResponse
+     */
     public function update(UpdateShopRequest $request, $id)
     {
-        $shop = $this->shop->update($request->get('name'), $id);
+        $attributes = $request->validated();
+
+        $shop = $this->shop->update($attributes, $id);
 
         return $this->respondWithResource(new ShopResource($shop), JsonResponse::HTTP_OK);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return JsonResponse
+     */
     public function destroy($id)
     {
         $this->shop->deleteById($id);
