@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Contracts\Repository;
+use App\Contracts\CrudRepository;
 use App\Grocery;
 
-class GroceryRepository extends EloquentRepository implements Repository
+class GroceryRepository extends EloquentRepository implements CrudRepository
 {
     /** @var Grocery */
     private $grocery;
@@ -41,7 +41,7 @@ class GroceryRepository extends EloquentRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function create($attributes)
+    public function create(array $attributes)
     {
         return $this->grocery->create($attributes);
     }
@@ -73,7 +73,7 @@ class GroceryRepository extends EloquentRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function update($attributes, $id)
+    public function update(array $attributes, $id)
     {
         $grocery = $this->findOrFail($id);
 

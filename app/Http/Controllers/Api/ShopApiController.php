@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\UpdateShopRequest;
 use App\Http\Requests\StoreShopRequest;
-use App\Http\Resources\ShopCollection;
 use App\Http\Resources\ShopResource;
 use App\Repositories\ShopRepository;
 use Illuminate\Http\JsonResponse;
@@ -32,6 +31,7 @@ class ShopApiController extends ApiController
     {
         $relations = $this->getEmbeddedRelations($request);
 
+        // @TODO relations could be paginated as well
         $shops = $this->shop->withRelations($relations)->paginate($this->pagination);
 
         return $this->respondWithCollection(ShopResource::collection($shops));

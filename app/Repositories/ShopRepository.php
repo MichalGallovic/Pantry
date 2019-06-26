@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Contracts\Repository;
+use App\Contracts\CrudRepository;
 use App\Shop;
 use Illuminate\Database\Eloquent\Collection;
 
-class ShopRepository extends EloquentRepository implements Repository
+class ShopRepository extends EloquentRepository implements CrudRepository
 {
     /** @var Shop */
     private $shop;
@@ -53,7 +53,7 @@ class ShopRepository extends EloquentRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function create($attributes)
+    public function create(array $attributes)
     {
         return $this->shop->create($attributes);
     }
@@ -85,7 +85,7 @@ class ShopRepository extends EloquentRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function update($attributes, $id)
+    public function update(array $attributes, $id)
     {
         $shop = $this->findOrFail($id);
 

@@ -13,11 +13,11 @@ class CreateRecipeGroceryTable extends Migration
      */
     public function up()
     {
-        Schema::create('recipe_grocery', function (Blueprint $table) {
+        Schema::create('grocery_recipe', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('units');
             $table->unsignedBigInteger('recipe_id')->nullable();
-            $table->foreign('recipe_id')->references('id')->on('recipes');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->unsignedBigInteger('grocery_id')->nullable();
             $table->foreign('grocery_id')->references('id')->on('groceries');
             $table->timestamp('created_at')->nullable();
@@ -32,6 +32,6 @@ class CreateRecipeGroceryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipe_grocery');
+        Schema::dropIfExists('grocery_recipe');
     }
 }

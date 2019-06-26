@@ -11,21 +11,21 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  * It is very common to name it Repository even though it does not represent
  * so called Repository Pattern
  */
-interface Repository
+interface CrudRepository
 {
     /**
      * @param int $perPage
      *
      * @return Collection
      */
-    public function paginate($perPage);
+    public function paginate($perPage = 10);
 
     /**
      * @param array $attributes
      *
      * @return mixed
      */
-    public function create($attributes);
+    public function create(array $attributes);
 
     /**
      * @param int|string $id
@@ -51,7 +51,7 @@ interface Repository
      *
      * @throws ModelNotFoundException
      */
-    public function update($attributes, $id);
+    public function update(array $attributes, $id);
 
     /**
      * @param int $id

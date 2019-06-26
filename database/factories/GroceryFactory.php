@@ -33,24 +33,46 @@ $factory->define(Grocery::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(Grocery::class, 'fruits', function (Faker $faker) {
-    return [
-        'name' => collect(['Apple', 'Orange', 'Strawberies'])->random(),
-        'units' => random_int(200, 500),
-        'unit_type_id' => function () {
-            return factory(UnitType::class)->state(UnitTypeCategory::WEIGHT)->create()->id;
-        },
-        'price' => $faker->randomNumber(2)
-    ];
+if (!function_exists('fruit')) {
+    function fruit(Faker $faker)
+    {
+        return [
+            'name' => collect(['Apple', 'Orange', 'Strawberies'])->random(),
+            'units' => random_int(200, 500),
+            'unit_type_id' => function () {
+                return factory(UnitType::class)->state(UnitTypeCategory::WEIGHT)->create()->id;
+            },
+            'price' => $faker->randomNumber(2)
+        ];
+    }
+}
+
+if (!function_exists('vegetable')) {
+    function vegetable(Faker $faker)
+    {
+        return [
+            'name' => collect(['Potatoes', 'Tomatoes', 'Peppers'])->random(),
+            'units' => random_int(200, 500),
+            'unit_type_id' => function () {
+                return factory(UnitType::class)->state(UnitTypeCategory::WEIGHT)->create()->id;
+            },
+            'price' => $faker->randomNumber(2)
+        ];
+    }
+}
+
+$factory->state(Grocery::class, 'fruit', function (Faker $faker) {
+    return fruit($faker);
 });
 
-$factory->state(Grocery::class, 'vegetables', function (Faker $faker) {
-    return [
-        'name' => collect(['Potatoes', 'Tomatoes', 'Peppers'])->random(),
-        'units' => random_int(200, 500),
-        'unit_type_id' => function () {
-            return factory(UnitType::class)->state(UnitTypeCategory::WEIGHT)->create()->id;
-        },
-        'price' => $faker->randomNumber(2)
-    ];
+$factory->state(Grocery::class, 'vegetable', function (Faker $faker) {
+    return vegetable($faker);
+});
+
+$factory->state(Grocery::class, 'no-shop:fruit', function (Faker $faker) {
+    return fruit($faker) + ['shop_id' => null];
+});
+
+$factory->state(Grocery::class, 'no-shop:vegetable', function (Faker $faker) {
+    return vegetable($faker) + ['shop_id' => null];
 });

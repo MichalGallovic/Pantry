@@ -1,6 +1,8 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Grocery;
 use App\Shop;
 use Faker\Generator as Faker;
 
@@ -18,4 +20,21 @@ $factory->define(Shop::class, function (Faker $faker) {
     return [
         'name' => $faker->name()
     ];
+});
+
+$factory->state(Shop::class, 'with-groceries', []);
+
+$factory->afterCreatingState(Shop::class, 'with-groceries', function (Shop $shop) {
+    $fruits = collect(range(0,10))
+        ->map(function () {
+            return factory(Grocery::class)->state('no-shop:fruit')->create();
+        });
+
+    $vegetables = collect(range(0,10))
+        ->map(function () {
+            return factory(Grocery::class)->state('no-shop:vegetable')->create();
+        });
+
+    $shop->groceries()->saveMany($fruits);
+    $shop->groceries()->saveMany($vegetables);
 });

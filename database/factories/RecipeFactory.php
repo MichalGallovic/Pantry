@@ -1,10 +1,10 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Grocery;
 use App\Recipe;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,19 @@ use Carbon\Carbon;
 $factory->define(Recipe::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
-        'servings' => random_int(-2147483648, 2147483647),
-        'preparation_minutes' => random_int(0, 4294967295)
+        'servings' => random_int(1, 4),
+        'preparation_minutes' => random_int(3, 20) * 5
     ];
+});
+
+$factory->afterCreating(Recipe::class, function (Recipe $recipe) {
+    $recipeGroceries = collect(range(0,10))
+        ->mapWithKeys(function () {
+            $grocery = factory(Grocery::class)
+                ->state(collect(['fruit', 'vegetable'])->random())
+                ->create();
+            return [$grocery->id => ['units' => random_int(4,10) * $grocery->units]];
+        });
+
+    $recipe->groceries()->attach($recipeGroceries);
 });

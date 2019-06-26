@@ -26,7 +26,7 @@ class GrocerySeeder extends Seeder
     {
         $shops = $this->shop->all();
 
-        factory(Grocery::class, 10)->state('fruits')->create(['shop_id' => $shops[0]->id]);
-        factory(Grocery::class, 10)->state('vegetables')->create(['shop_id' => $shops[1]->id]);
+        factory(Grocery::class, 10)->state('fruit')->create(['shop_id' => $shops[0]->id]);
+        factory(Grocery::class, 10)->state('vegetable')->create(['shop_id' => $shops[1]->id]);
     }
 }
