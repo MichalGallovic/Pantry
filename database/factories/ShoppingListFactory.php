@@ -2,9 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\ShoppingList;
-use Illuminate\Support\Str;
+use App\ShoppingListItem;
 use Faker\Generator as Faker;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +20,25 @@ $factory->define(ShoppingList::class, function (Faker $faker) {
     return [
         'name' => $faker->name()
     ];
+});
+
+$factory->state(ShoppingList::class, 'with-items', []);
+$factory->state(ShoppingList::class, 'with-grocery-items', []);
+
+$factory->afterCreatingState(ShoppingList::class, 'with-items', function (ShoppingList $shoppingList) {
+    $shoppingListItems = collect(range(0,10))
+        ->map(function () {
+            return factory(ShoppingListItem::class)->create();
+        });
+
+    $shoppingList->shoppingListItems()->saveMany($shoppingListItems);
+});
+
+$factory->afterCreatingState(ShoppingList::class, 'with-grocery-items', function (ShoppingList $shoppingList) {
+    $shoppingListItems = collect(range(0,10))
+        ->map(function () {
+            return factory(ShoppingListItem::class)->state('with-grocery')->create();
+        });
+
+    $shoppingList->shoppingListItems()->saveMany($shoppingListItems);
 });

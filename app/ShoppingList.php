@@ -22,5 +22,4 @@ class ShoppingList extends Model
     {
         return $this->hasMany(\App\ShoppingListItem::class);
     }
-
 }

@@ -23,4 +23,11 @@ class ShoppingListItem extends Model
         return $this->belongsTo(\App\ShoppingList::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function grocery()
+    {
+        return $this->belongsTo(\App\Grocery::class);
+    }
 }

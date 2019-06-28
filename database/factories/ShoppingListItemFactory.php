@@ -1,6 +1,9 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Grocery;
+use App\ShoppingList;
 use App\ShoppingListItem;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
@@ -20,8 +23,18 @@ use Carbon\Carbon;
 $factory->define(ShoppingListItem::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
-        'order' => random_int(-2147483648, 2147483647),
+        'order' => random_int(0, 100),
         'completed' => $faker->boolean(),
-        'shopping_list_id' => random_int(1, 10)
+        'shopping_list_id' => function () {
+            return factory(ShoppingList::class)->create()->id;
+        }
+    ];
+});
+
+$factory->state(ShoppingListItem::class, 'with-grocery', function () {
+    return [
+        'grocery_id' => function () {
+            return factory(Grocery::class)->state('fruit')->create()->id;
+        }
     ];
 });
