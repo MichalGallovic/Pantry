@@ -5,9 +5,7 @@
 use App\Grocery;
 use App\ShoppingList;
 use App\ShoppingListItem;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------

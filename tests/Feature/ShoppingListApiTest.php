@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\ShoppingList;
-use App\ShoppingListItem;
 use Illuminate\Http\JsonResponse;
 use Tests\ApiTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

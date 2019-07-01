@@ -90,7 +90,6 @@ class RecipeRepository extends EloquentRepository
         $groceries = $this->mapRecipeGroceries($recipeGroceries);
 
         $recipe->groceries()->sync($groceries);
-        // @TODO Or maybe updateExistingPivot
 
         return $recipe;
     }

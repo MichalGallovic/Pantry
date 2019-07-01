@@ -45,11 +45,17 @@ Route::name('api.')->group(function () {
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
 
-    Route::resource('shopping-lists', ShoppingListApiController::class, [
-        'only' => ['index', 'show', 'store', 'update', 'destroy']
+    Route::resource('shopping-lists/items', ShoppingListItemApiController::class, [
+        'only' => ['index', 'store', 'update', 'destroy'],
+        'names' => [
+            'index' => 'shopping-list-items.index',
+            'store' => 'shopping-list-items.store',
+            'update' => 'shopping-list-items.update',
+            'destroy' => 'shopping-list-items.destroy'
+        ]
     ]);
 
-    Route::resource('shopping-lists/items', ShoppingListItemApiController::class, [
-        'only' => ['index', 'store', 'update', 'destroy']
+    Route::resource('shopping-lists', ShoppingListApiController::class, [
+        'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
 });
