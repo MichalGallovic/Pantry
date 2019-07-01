@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Shop;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
 use Tests\ApiTestCase;
@@ -14,16 +13,7 @@ class ShopApiTest extends ApiTestCase
 
     public function test_shop_pagination()
     {
-        /** @var Collection $shops */
-        $shops = factory(Shop::class, 20)->create();
-
-        $response = $this->get(route('api.shops.index'));
-
-        $this->assertResponse($response, collect($shops)->slice(0, 10)->values()->toArray());
-
-        $response = $this->json('GET', route('api.shops.index'), ['page' => 2]);
-
-        $this->assertResponse($response, collect($shops)->slice(10, 20)->values()->toArray());
+        $this->assertPaginationOnRoute(Shop::class, 'api.shops.index');
     }
 
     public function test_can_retrieve_relations_of_shops()

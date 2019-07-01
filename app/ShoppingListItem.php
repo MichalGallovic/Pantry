@@ -15,6 +15,11 @@ class ShoppingListItem extends Model
         'name', 'order', 'completed', 'shopping_list_id'
     ];
 
+    /** @var array */
+    protected $hidden = [
+        'created_at', 'updated_at', 'shopping_list_id', 'grocery_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -29,5 +34,10 @@ class ShoppingListItem extends Model
     public function grocery()
     {
         return $this->belongsTo(\App\Grocery::class);
+    }
+
+    public function getCompletedAttribute($value)
+    {
+        return !!$value;
     }
 }

@@ -15,16 +15,7 @@ class RecipeApiTest extends ApiTestCase
 
     public function test_recipe_pagination()
     {
-        /** @var Collection $recipes */
-        $recipes = factory(Recipe::class, 20)->create();
-
-        $response = $this->get(route('api.recipes.index'));
-
-        $this->assertResponse($response, collect($recipes)->slice(0, 10)->values()->toArray());
-
-        $response = $this->json('GET', route('api.recipes.index'), ['page' => 2]);
-
-        $this->assertResponse($response, collect($recipes)->slice(10, 10)->values()->toArray());
+        $this->assertPaginationOnRoute(Recipe::class, 'api.recipes.index');
     }
 
     public function test_can_retrieve_relations_of_recipes()

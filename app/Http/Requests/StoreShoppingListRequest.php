@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StoreShoppingListRequest extends FormRequest
+class StoreShoppingListRequest extends ApiRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +12,7 @@ class StoreShoppingListRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'list-items' => []
+            'name' => 'required|unique:shopping_lists'
         ];
     }
 }

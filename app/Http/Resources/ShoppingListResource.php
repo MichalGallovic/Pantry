@@ -17,7 +17,7 @@ class ShoppingListResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'list-items' => ShoppingListItemResource::collection($this->whenLoaded('shoppingListItems'))
+            'shopping_list_items' => ShoppingListItemResource::collection($this->whenLoaded('shoppingListItems'))
         ];
     }
 }

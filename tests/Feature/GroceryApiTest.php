@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Grocery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Collection;
 use Tests\ApiTestCase;
 
 class GroceryApiTest extends ApiTestCase
@@ -14,16 +13,7 @@ class GroceryApiTest extends ApiTestCase
 
     public function test_grocery_pagination()
     {
-        /** @var Collection $groceries */
-        $groceries = factory(Grocery::class, 20)->create();
-
-        $response = $this->get(route('api.groceries.index'));
-
-        $this->assertResponse($response, collect($groceries)->slice(0, 10)->values()->toArray());
-
-        $response = $this->json('GET', route('api.groceries.index'), ['page' => 2]);
-
-        $this->assertResponse($response, collect($groceries)->slice(10, 20)->values()->toArray());
+        $this->assertPaginationOnRoute(Grocery::class, 'api.groceries.index');
     }
 
     public function test_grocery_embedded_relations()

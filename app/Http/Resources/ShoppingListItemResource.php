@@ -20,7 +20,7 @@ class ShoppingListItemResource extends JsonResource
             'order' => $this->order,
             'completed' => $this->completed,
             'grocery' => new GroceryResource($this->whenLoaded('grocery')),
-            'shopping-list' => new ShoppingListResource($this->whenLoaded('shoppingList'))
+            'shopping_list' => new ShoppingListResource($this->whenLoaded('shoppingList'))
         ];
     }
 }

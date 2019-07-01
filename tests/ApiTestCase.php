@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\JsonResponse;
@@ -40,10 +39,28 @@ class ApiTestCase extends TestCase
      * @param TestResponse $response
      * @param int          $statusCode
      */
-    public function assertSuccess(TestResponse $response, $statusCode = JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+    protected function assertSuccess(TestResponse $response, $statusCode = JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
     {
         $response
             ->assertStatus($statusCode)
             ->assertJsonStructure(['success']);
+    }
+
+    /**
+     * @param string $modelName
+     * @param string $routeName
+     */
+    protected function assertPaginationOnRoute($modelName, $routeName)
+    {
+        /** @var Collection $models */
+        $models = factory($modelName, 20)->create();
+
+        $response = $this->get(route($routeName));
+
+        $this->assertResponse($response, collect($models)->slice(0, 10)->values()->toArray());
+
+        $response = $this->json('GET', route($routeName), ['page' => 2]);
+
+        $this->assertResponse($response, collect($models)->slice(10, 20)->values()->toArray());
     }
 }

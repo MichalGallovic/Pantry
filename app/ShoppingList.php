@@ -15,6 +15,11 @@ class ShoppingList extends Model
         'name'
     ];
 
+    /** @var array */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
