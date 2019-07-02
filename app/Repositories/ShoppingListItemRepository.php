@@ -53,7 +53,7 @@ class ShoppingListItemRepository extends EloquentRepository implements CrudRepos
      */
     public function create(array $attributes)
     {
-        return $this->create($attributes);
+        return $this->shoppingListItem->create($attributes);
     }
 
     /**
