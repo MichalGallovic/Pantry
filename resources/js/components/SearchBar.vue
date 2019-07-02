@@ -3,7 +3,7 @@
         <div class="absolute inset-y-0 left-0 flex items-center pl-4">
             <InputIcon class="fa-search"></InputIcon>
         </div>
-        <TextInput class="pl-12 pr-6 w-full" placeholder="Search"></TextInput>
+        <TextInput @focus.native="$emit('focus')" @blur.native="$emit('blur')" @input="value => $emit('change', value)" class="pl-12 pr-6 w-full" placeholder="Search"></TextInput>
     </div>
 </template>
 

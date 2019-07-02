@@ -15,8 +15,7 @@
                 <div class="mt-2">
                     <TextLabel>Groceries</TextLabel>
                     <div class="flex w-full md:w-2/3">
-                        <SearchBar class="w-full"></SearchBar>
-                        <AddButton class="flex-none ml-2"></AddButton>
+                        <AutoComplete class="w-full"></AutoComplete>
                     </div>
                     <div class="mt-2 w-full md:w-2/3">
                         <ListItem v-for="grocery in groceries" :key="grocery.id" class="w-full"></ListItem>
@@ -39,7 +38,7 @@ import Heading from '../../StyledComponents/Heading';
 import Label from '../../StyledComponents/Form/Label';
 import TextInput from '../../StyledComponents/Form/WithErrors/TextInput';
 import TextLabel from '../../StyledComponents/Form/TextLabel';
-import SearchBar from '../../SearchBar';
+import AutoComplete from '../../AutoComplete';
 import AddButton from '../../StyledComponents/Buttons/AddButton';
 import Button from '../../StyledComponents/Buttons/Button';
 import {RepositoryFactory} from "../../Repositories/RepositoryFactory";
@@ -59,7 +58,7 @@ export default {
         TextInput,
         AddButton,
         Button,
-        SearchBar,
+        AutoComplete,
         Card
     },
     data () {

@@ -91,4 +91,15 @@ class GroceryRepository extends EloquentRepository implements CrudRepository
 
         $grocery->delete();
     }
+
+    /**
+     * @param string $query
+     * @param int $limit
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function search($query, $limit)
+    {
+        return $this->grocery->where('name', 'LIKE', "%{$query}%")->limit($limit)->get();
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\GroceryApiController;
 use App\Http\Controllers\Api\RecipeApiController;
+use App\Http\Controllers\Api\SearchGroceriesApiController;
 use App\Http\Controllers\Api\ShopApiController;
 use App\Http\Controllers\Api\ShoppingListItemApiController;
 use App\Http\Controllers\Api\UnitTypeController;
@@ -32,6 +33,8 @@ Route::name('api.')->group(function () {
     Route::resource('shops', ShopApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
+
+    Route::get('groceries/search', SearchGroceriesApiController::class);
 
     Route::resource('groceries', GroceryApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']
