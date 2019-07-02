@@ -25,6 +25,7 @@ class CreateGroceriesTable extends Migration
             $table->foreign('unit_type_id')->references('id')->on('unit_types');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->softDeletes();
         });
     }
 

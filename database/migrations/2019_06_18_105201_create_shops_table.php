@@ -18,6 +18,7 @@ class CreateShopsTable extends Migration
             $table->string('name')->unique();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->softDeletes();
         });
     }
 
