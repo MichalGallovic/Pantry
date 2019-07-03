@@ -20,7 +20,9 @@ class GroceryResource extends JsonResource
             'expiration_days' => $this->expiration_days,
             'price' => $this->price,
             'units' => $this->units,
+            'unit_type_id' => $this->unit_type_id,
             'unit_type' => new UnitTypeResource($this->whenLoaded('unitType')),
+            'shop_id' => $this->shop_id,
             'shop' => new ShopResource($this->whenLoaded('shop'))
         ];
     }

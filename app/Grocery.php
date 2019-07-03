@@ -12,7 +12,7 @@ class Grocery extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'expiration_days', 'units', 'unit_type', 'price', 'shop_id'
+        'name', 'expiration_days', 'units', 'unit_type', 'price', 'shop_id', 'unit_type_id'
     ];
 
     /**
