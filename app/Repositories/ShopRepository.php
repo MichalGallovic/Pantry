@@ -44,10 +44,10 @@ class ShopRepository extends EloquentRepository implements CrudRepository
     public function all()
     {
         if ($this->withRelations) {
-            return $this->shop->with($this->withRelations)->all();
+            return $this->shop->with($this->withRelations)->get();
         }
 
-        return $this->shop->all();
+        return $this->shop->get();
     }
 
     /**

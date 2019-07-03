@@ -18,6 +18,7 @@ class ShopApiTest extends ApiTestCase
 
     public function test_can_retrieve_relations_of_shops()
     {
+        $this->withoutExceptionHandling();
         factory(Shop::class)->state('with-groceries')->create();
         $shop = Shop::with('groceries')->first();
 

@@ -31,8 +31,11 @@ class ShopApiController extends ApiController
     {
         $relations = $this->getEmbeddedRelations($request);
 
-        // @TODO relations could be paginated as well
-        $shops = $this->shop->withRelations($relations)->paginate($this->pagination);
+        if ($request->has('page')) {
+            $shops = $this->shop->withRelations($relations)->paginate($this->pagination);
+        } else {
+            $shops = $this->shop->withRelations($relations)->all();
+        }
 
         return $this->respondWithCollection(ShopResource::collection($shops));
     }
