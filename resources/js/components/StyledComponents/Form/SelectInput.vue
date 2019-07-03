@@ -11,7 +11,7 @@
             :class="{ 'text-gray-800': selectedOption, 'text-gray-600': !selectedOption }"
         >
             <option :value="null">{{ placeholder }}</option>
-            <option v-for="option in options" :key="option.id" :value="option.value">{{ option.name }}</option>
+            <option v-for="option in options" :key="option.id" :value="option.value">{{ option.text }}</option>
         </select>
     </div>
 </template>

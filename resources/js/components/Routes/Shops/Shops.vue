@@ -29,7 +29,7 @@ import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import Loading from '../../Loading';
 import CardGrid from '../../StyledComponents/CardGrid';
 import Card from '../../StyledComponents/Card';
-import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
+import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 
 const ShopRepository = RepositoryFactory.get('shop');
 

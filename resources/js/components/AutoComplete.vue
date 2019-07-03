@@ -32,7 +32,7 @@ import SearchBar from './SearchBar';
 import AddButton from './StyledComponents/Buttons/AddButton';
 import Suggestions from './Suggestions';
 import InteractiveListItem from './StyledComponents/ListItem/InteractiveListItem.vue';
-import { RepositoryFactory } from "./Repositories/RepositoryFactory";
+import { RepositoryFactory } from "../Repositories/RepositoryFactory";
 
 const GroceryRepository = RepositoryFactory.get('grocery');
 

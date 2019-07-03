@@ -42,7 +42,7 @@ import TextLabel from '../../StyledComponents/Form/TextLabel';
 import SearchBar from '../../SearchBar';
 import AddButton from '../../StyledComponents/Buttons/AddButton';
 import Button from '../../StyledComponents/Buttons/Button';
-import {RepositoryFactory} from "../../Repositories/RepositoryFactory";
+import {RepositoryFactory} from "../../../Repositories/RepositoryFactory";
 import FormHandling from '../../Mixins/FormHandling';
 import ListItem from "../../StyledComponents/ListItem/ListItem";
 import Card from '../../StyledComponents/Card';
@@ -78,9 +78,9 @@ export default {
             this.isLoading = false;
             this.shop = data;
         },
-        async updateShop() {
+        async update() {
             try {
-                await ShopRepository.updateShop({ name: this.shop.name }, this.id);
+                await ShopRepository.update({ name: this.shop.name }, this.id);
                 this.$router.push({ name: 'shops'});
             } catch (error) {
                 this.handleErrors(error);

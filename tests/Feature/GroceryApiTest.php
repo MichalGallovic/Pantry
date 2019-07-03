@@ -34,7 +34,7 @@ class GroceryApiTest extends ApiTestCase
 
         $response = $this->post(route('api.groceries.store'), $newGrocery->makeVisible(['shop_id', 'unit_type_id'])->toArray());
 
-        $this->assertResponse($response, $newGrocery->makeHidden(['shop_id', 'unit_type_id'])->toArray(), JsonResponse::HTTP_CREATED);
+        $this->assertResponse($response, $newGrocery->makeVisible(['shop_id', 'unit_type_id'])->toArray(), JsonResponse::HTTP_CREATED);
     }
 
     public function test_cannot_create_grocery_with_invalid_data()

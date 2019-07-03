@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col inline-block" v-if="errors">
-        <small class="text-red-600" v-for="error in errors">{{ error }}</small>
+        <Error v-for="(error, i) in errors" :error="error" :key="i"></Error>
         <TextInput :value="value" @input="value => $emit('input', value)"></TextInput>
     </div>
     <TextInput v-else :value="value" @input="value => $emit('input', value)"></TextInput>
@@ -8,10 +8,12 @@
 
 <script>
 import TextInput from '../TextInput';
+import Error from './Error';
 
 export default {
     components: {
-        TextInput
+        TextInput,
+        Error
     },
     props: {
         placeholder: {

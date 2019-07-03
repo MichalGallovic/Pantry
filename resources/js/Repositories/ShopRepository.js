@@ -9,10 +9,10 @@ export default {
     find(id) {
         return Repository.get(`${resource}/${id}`).then(data => data.data);
     },
-    createShop(payload) {
+    create(payload) {
         return Repository.post(`${resource}`, payload).then(data => data.data);
     },
-    updateShop(payload, id) {
+    update(payload, id) {
         return Repository.put(`${resource}/${id}`, payload);
     },
     delete(id) {

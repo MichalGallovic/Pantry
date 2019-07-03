@@ -42,7 +42,7 @@ import DeleteDialog from '../../StyledComponents/Modals/DeleteDialog';
 import TextLabel from '../../StyledComponents/Form/TextLabel';
 import ListItem from '../../StyledComponents/ListItem/ListItem';
 import Card from '../../StyledComponents/Card';
-import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
+import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 import SearchBar from "../../SearchBar";
 
 const ShopRepository = RepositoryFactory.get('shop');

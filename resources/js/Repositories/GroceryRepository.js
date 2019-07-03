@@ -8,5 +8,8 @@ export default {
     },
     search (query) {
         return Repository.get(`${resource}/search?q=${query}`).then(data => data.data);
-    }
+    },
+    create (payload) {
+        return Repository.post(`${resource}`, payload).then(data => data.data);
+    },
 }
