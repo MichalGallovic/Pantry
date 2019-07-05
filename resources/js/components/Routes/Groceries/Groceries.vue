@@ -8,13 +8,19 @@
             <SearchBar class="ml-auto"></SearchBar>
         </div>
         <SquareGrid>
-            <SquareItem
-                v-for="(grocery, i) in groceries"
-                :key="i"
-                :title="grocery.title"
-                :bottom-title="grocery.bottomTitle"
+            <router-link
+                :to="{ name: 'groceries.show', params: { 'id': grocery.id} }"
+                v-for="grocery in groceries"
+                :key="grocery.id"
             >
-            </SquareItem>
+                <SquareItem
+                    :title="grocery.name"
+                    :sub-title="grocery.shop.name"
+                    :bottom-left="formatUnits(grocery.units, grocery.unit_type_id)"
+                    :bottom-right="formatPrice(grocery.price)"
+                >
+                </SquareItem>
+            </router-link>
         </SquareGrid>
     </section>
 </template>
@@ -25,15 +31,14 @@ import SearchBar from '../../SearchBar';
 import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import SquareGrid from '../../StyledComponents/SquareGrid';
 import SquareItem from '../../StyledComponents/SquareItem';
-import UnitTypeFactory from '../../../UnitType';
-
+import FormatGroceries from '../../Mixins/FormatGroceries';
+import FormatUnitTypes from '../../Mixins/FormatUnitTypes';
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 
 const GroceryRepository = RepositoryFactory.get('grocery');
-const UnitTypeRepository = RepositoryFactory.get('unitType');
-let UnitType = null;
 
 export default {
+    mixins: [FormatGroceries, FormatUnitTypes],
     components: {
         Heading,
         PlusButton,
@@ -43,29 +48,16 @@ export default {
     },
     data () {
         return {
-            groceries: []
+            groceries: null
         };
     },
     created () {
-        this.fetchUnitTypes();
         this.fetchGroceries();
     },
     methods: {
-        mapGroceries (groceries) {
-            return groceries.map(grocery => {
-                return {
-                    title: grocery.name,
-                    bottomTitle: `${grocery.units} ${UnitType.getNameById(grocery.unit_type_id)}`
-                }
-            });
-        },
-        async fetchUnitTypes () {
-            const { data } = await UnitTypeRepository.get();
-            UnitType = UnitTypeFactory(data);
-        },
         async fetchGroceries () {
             const { data } = await GroceryRepository.paginate();
-            this.groceries = this.mapGroceries(data);
+            this.groceries = data;
         }
     }
 };

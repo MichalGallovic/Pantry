@@ -1,15 +1,15 @@
 <template>
     <section>
         <div class="flex">
-            <Heading>Add Grocery</Heading>
+            <Heading>Edit Grocery</Heading>
         </div>
-        <div class="flex flex-wrap">
-            <form class="mt-4 w-full sm:w-1/2" @submit.prevent="create">
+        <div class="flex flex-wrap" v-if="grocery">
+            <form class="mt-4 w-full sm:w-1/2" @submit.prevent="update">
                 <div>
                     <Label class="block">Grocery name</Label>
                     <Error v-for="(error, i) in errorMessages.name" :error="error" :key="i"></Error>
                     <TextInput
-                        v-model="name"
+                        v-model="grocery.name"
                         class="mt-2 w-full block"
                         placeholder="Vlašské orechy"
                     >
@@ -19,25 +19,25 @@
                     <Label class="block">Expiration in days</Label>
                     <Error v-for="(error, i) in errorMessages.expiration_days" :error="error" :key="i"></Error>
                     <TextInput
-                        v-model="expiration_days"
-                        class="mt-2 w-1/2 block"
-                        placeholder="30"
+                            v-model="grocery.expiration_days"
+                            class="mt-2 w-1/2 block"
+                            placeholder="30"
                     ></TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Price</Label>
                     <Error v-for="(error, i) in errorMessages.price" :error="error" :key="i"></Error>
                     <TextInput
-                        v-model="price"
-                        class="mt-2 w-1/2 block"
-                        placeholder="20">
+                            v-model="grocery.price"
+                            class="mt-2 w-1/2 block"
+                            placeholder="20">
                     </TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Shop</Label>
                     <Error v-for="(error, i) in errorMessages.shop_id" :error="error" :key="i"></Error>
                     <SelectInput
-                        v-model="shop_id"
+                        v-model="grocery.shop_id"
                         :options="shops"
                         class="mt-2 w-full block"
                     ></SelectInput>
@@ -54,8 +54,8 @@
                             </div>
                         </div>
                         <div class="flex">
-                            <TextInput class="mt-2 w-full" v-model="units"></TextInput>
-                            <SelectInput class="mt-2 w-full ml-4" :options="unit_types" v-model="unit_type_id"></SelectInput>
+                            <TextInput class="mt-2 w-full" v-model="grocery.units"></TextInput>
+                            <SelectInput class="mt-2 w-full ml-4" :options="unit_types" v-model="grocery.unit_type_id"></SelectInput>
                         </div>
                     </div>
                 </div>
@@ -66,11 +66,11 @@
             <div class="hidden sm:block ml-8 mt-4">
                 <TextLabel class="block">Grocery item preview</TextLabel>
                 <SquareItem
-                    class="mt-2 w-40"
-                    :title="name"
-                    :sub-title="shop.text"
-                    :bottom-left="formatUnits(units, unit_type_id)"
-                    :bottom-right="formatPrice(price)">
+                        class="mt-2 w-40"
+                        :title="grocery.name"
+                        :sub-title="shop.text"
+                        :bottom-left="formatUnits(grocery.units, grocery.unit_type_id)"
+                        :bottom-right="formatPrice(grocery.price)">
                 </SquareItem>
             </div>
         </div>
@@ -93,9 +93,11 @@ import Groceries from '../../Mixins/Groceries';
 
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 
+
 const GroceryRepository = RepositoryFactory.get('grocery');
 
 export default {
+    props: ['id'],
     mixins: [FormHandling, FormatGroceries, FormatUnitTypes, Groceries],
     components: {
         Heading,
@@ -107,12 +109,10 @@ export default {
         TextLabel,
         Button
     },
-    computed: {
-        shop () {
-            return this.shops.find(shop => {
-                return shop.id == this.shop_id
-            }) || {};
-        },
+    created () {
+        this.fetchShops();
+        this.fetchUnitTypes();
+        this.fetchGrocery();
     },
     data () {
         return {
@@ -124,21 +124,17 @@ export default {
             unit_type_id: null,
         }
     },
-    created () {
-        this.fetchShops();
-        this.fetchUnitTypes();
+    computed: {
+        shop () {
+            return this.shops.find(shop => {
+                return shop.id == this.grocery.shop_id
+            }) || {};
+        },
     },
     methods: {
-        async create() {
+        async update () {
             try {
-                await GroceryRepository.create({
-                    name: this.name,
-                    expiration_days: this.expiration_days,
-                    price: this.price,
-                    shop_id: this.shop_id,
-                    units: this.units,
-                    unit_type_id: this.unit_type_id
-                });
+                await GroceryRepository.update(this.id, this.grocery);
                 this.$router.push({ name: 'groceries'});
             } catch (error) {
                 this.handleErrors(error);

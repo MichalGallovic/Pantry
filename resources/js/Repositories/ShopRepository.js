@@ -4,18 +4,24 @@ const resource = '/shops';
 
 export default {
     get() {
-        return Repository.get(`${resource}`).then(data => data.data);
+        return Repository.get(resource);
     },
     find(id) {
-        return Repository.get(`${resource}/${id}`).then(data => data.data);
+        const path = `${resource}/${id}`;
+
+        return Repository.get(path);
     },
     create(payload) {
-        return Repository.post(`${resource}`, payload).then(data => data.data);
+        return Repository.post(resource, payload);
     },
     update(payload, id) {
-        return Repository.put(`${resource}/${id}`, payload);
+        const path = `${resource}/${id}`;
+
+        return Repository.put(path, payload);
     },
     delete(id) {
-        return Repository.delete(`${resource}/${id}`).then(data => data.data);
+        const path = `${resource}/${id}`;
+
+        return Repository.delete(path);
     }
 }

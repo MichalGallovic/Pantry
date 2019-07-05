@@ -4,11 +4,10 @@
             <InputIcon class="fa-chevron-down"></InputIcon>
         </div>
         <select
-            :value="input"
+            :value="value"
             @input="e => $emit('input', e.target.value)"
-            v-model="selectedOption"
             class="bg-gray-300 pl-6 py-2 h-10 font-medium rounded-lg focus:outline-none w-full appearance-none"
-            :class="{ 'text-gray-800': selectedOption, 'text-gray-600': !selectedOption }"
+            :class="{ 'text-gray-800': value, 'text-gray-600': !value }"
         >
             <option :value="null">{{ placeholder }}</option>
             <option v-for="option in options" :key="option.id" :value="option.value">{{ option.text }}</option>
@@ -27,22 +26,12 @@ export default {
         options: {
             default: () => []
         },
-        input: {
+        value: {
             default: null
         }
     },
     components: {
         InputIcon
-    },
-    data () {
-        return {
-            selectedOption: null
-        }
-    },
-    methods: {
-        select (option) {
-            this.selectedOption = option;
-        }
     }
 };
 </script>

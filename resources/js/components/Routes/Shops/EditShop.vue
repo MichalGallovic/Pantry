@@ -2,7 +2,7 @@
     <section>
         <Heading>Edit shop</Heading>
         <div v-if="shop" class="flex flex-wrap mt-4">
-            <form class="w-full sm:w-1/2 sm:pr-8" @submit.prevent="updateShop">
+            <form class="w-full sm:w-1/2 sm:pr-8" @submit.prevent="update">
                 <div>
                     <Label class="block">Shop name</Label>
                     <TextInput
@@ -11,16 +11,6 @@
                             class="mt-2 w-full"
                             placeholder="Kaufland">
                     </TextInput>
-                </div>
-                <div class="mt-2">
-                    <TextLabel>Groceries</TextLabel>
-                    <div class="flex w-full md:w-2/3">
-                        <SearchBar class="w-full"></SearchBar>
-                        <AddButton class="flex-none ml-2"></AddButton>
-                    </div>
-                    <div class="mt-2 w-full md:w-2/3">
-                        <ListItem v-for="grocery in groceries" :key="grocery.id" class="w-full"></ListItem>
-                    </div>
                 </div>
                 <div class="mt-4">
                     <Button class="btn-grey" type="submit">Save</Button>

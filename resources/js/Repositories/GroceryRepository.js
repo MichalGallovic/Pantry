@@ -3,13 +3,30 @@ import Repository from './Repository';
 const resource = '/groceries';
 
 export default {
-    paginate (perPage = 10) {
-        return Repository.get(`${resource}/?paginate=${perPage}`).then(data => data.data);
+    paginate (perPage = 10, relations = ['shop']) {
+        return Repository.get(resource, { paginate: perPage, embed: relations});
     },
-    search (query) {
-        return Repository.get(`${resource}/search?q=${query}`).then(data => data.data);
+    search (term) {
+        const path = `${resource}/search`;
+
+        return Repository.get(path, { q: term });
+    },
+    find (id, relations = ['shop']) {
+        const path = `${resource}/${id}`;
+
+        return Repository.get(path, { embed: relations});
     },
     create (payload) {
-        return Repository.post(`${resource}`, payload).then(data => data.data);
+        return Repository.post(resource, payload);
     },
+    delete (id) {
+        const path = `${resource}/${id}`;
+
+        return Repository.delete(path);
+    },
+    update (id, payload) {
+        const path = `${resource}/${id}`;
+
+        return Repository.put(path, payload);
+    }
 }

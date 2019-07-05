@@ -30,7 +30,7 @@
         </DeleteDialog>
     </section>
     <section v-else>
-        <Loading>Loading shop detail ..</Loading>
+        <Loading>Loading shop detail ...</Loading>
     </section>
 </template>
 
@@ -61,9 +61,8 @@ export default {
     },
     data() {
         return {
-            isLoading: true,
-            askQuestion: false,
-            shop: null
+            shop: null,
+            askQuestion: false
         }
     },
     created() {
@@ -72,7 +71,6 @@ export default {
     methods: {
         async fetchShop() {
             const { data } = await ShopRepository.find(this.id);
-            this.isLoading = false;
             this.shop = data;
         },
         async deleteShop() {

@@ -4,19 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\UnitTypeResource;
 use App\Repositories\UnitTypeRepository;
+use App\UnitType;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Http\Request;
 
-class UnitTypeController extends ApiController
+class UnitTypeApiController extends ApiController
 {
     /** @var UnitTypeRepository */
     private $unitType;
 
+    /** @var Repository */
+    private $cache;
+
     /**
      * @param UnitTypeRepository $unitType
+     * @param Repository         $cache
      */
-    public function __construct(UnitTypeRepository $unitType)
+    public function __construct(UnitTypeRepository $unitType, Repository $cache)
     {
         $this->unitType = $unitType;
+        $this->cache    = $cache;
     }
 
     /**
@@ -24,7 +31,11 @@ class UnitTypeController extends ApiController
      */
     public function index()
     {
-        $unitTypes = $this->unitType->all();
+        $cacheKey = sprintf("%s.all", UnitType::class);
+
+        $unitTypes = $this->cache->rememberForever($cacheKey, function () {
+            return $this->unitType->all();
+        });
 
         return $this->respondWithCollection(UnitTypeResource::collection($unitTypes));
     }

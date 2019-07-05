@@ -3,9 +3,10 @@
 use App\Http\Controllers\Api\GroceryApiController;
 use App\Http\Controllers\Api\RecipeApiController;
 use App\Http\Controllers\Api\SearchGroceriesApiController;
+use App\Http\Controllers\Api\SettingsApiController;
 use App\Http\Controllers\Api\ShopApiController;
 use App\Http\Controllers\Api\ShoppingListItemApiController;
-use App\Http\Controllers\Api\UnitTypeController;
+use App\Http\Controllers\Api\UnitTypeApiController;
 use App\Http\Controllers\Api\ShoppingListApiController;
 use Illuminate\Routing\Router;
 
@@ -40,7 +41,7 @@ Route::name('api.')->group(function () {
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
 
-    Route::resource('unit-types', UnitTypeController::class, [
+    Route::resource('unit-types', UnitTypeApiController::class, [
         'only' => ['index', 'show']
     ]);
 
@@ -61,4 +62,6 @@ Route::name('api.')->group(function () {
     Route::resource('shopping-lists', ShoppingListApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
+
+    Route::get('settings', ['uses' => SettingsApiController::class, 'as' => 'settings.index']);
 });

@@ -1,15 +1,17 @@
-import InStock from './components/Routes/InStock';
-import Recipes from './components/Routes/Recipes/Recipes';
-import CreateRecipe from './components/Routes/Recipes/CreateRecipe';
-import ShoppingLists from './components/Routes/ShoppingList/ShoppingLists';
-import ShowShoppingList from './components/Routes/ShoppingList/ShowShoppingList';
-import CreateShoppingList from './components/Routes/ShoppingList/CreateShoppingList';
-import Groceries from './components/Routes/Groceries/Groceries';
+const InStock = () => import('./components/Routes/InStock');
+const Recipes = () => import('./components/Routes/Recipes/Recipes');
+const CreateRecipe = () => import('./components/Routes/Recipes/CreateRecipe');
+const ShoppingLists = () => import('./components/Routes/ShoppingList/ShoppingLists');
+const ShowShoppingList = () => import('./components/Routes/ShoppingList/ShowShoppingList');
+const CreateShoppingList = () => import('./components/Routes/ShoppingList/CreateShoppingList');
+const Groceries = () => import('./components/Routes/Groceries/Groceries');
 import CreateGrocery from './components/Routes/Groceries/CreateGrocery';
-import Shops from './components/Routes/Shops/Shops';
-import CreateShop from './components/Routes/Shops/CreateShop';
-import ShowShop from "./components/Routes/Shops/ShowShop";
-import EditShop from './components/Routes/Shops/EditShop';
+const Shops = () => import('./components/Routes/Shops/Shops');
+const CreateShop = () => import('./components/Routes/Shops/CreateShop');
+const ShowShop = () => import("./components/Routes/Shops/ShowShop");
+const EditShop = () => import('./components/Routes/Shops/EditShop');
+const ShowGrocery = () => import("./components/Routes/Groceries/ShowGrocery");
+const EditGrocery = () => import('./components/Routes/Groceries/EditGrocery');
 
 export default {
     mode: 'history',
@@ -54,6 +56,18 @@ export default {
             path: '/groceries/create',
             name: 'groceries.create',
             component: CreateGrocery
+        },
+        {
+            path: '/groceries/:id',
+            component: ShowGrocery,
+            name: 'groceries.show',
+            props: true
+        },
+        {
+            path: '/groceries/:id/edit',
+            component: EditGrocery,
+            name: 'groceries.edit',
+            props: true
         },
         {
             path: '/shops',

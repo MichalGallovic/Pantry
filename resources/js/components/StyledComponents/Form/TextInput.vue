@@ -9,11 +9,6 @@
 
 <script>
 export default {
-    props: {
-        placeholder: {
-            default: "Placeholder"
-        },
-        value: String
-    }
+    props: ['value', 'placeholder']
 };
 </script>
