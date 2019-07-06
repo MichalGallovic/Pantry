@@ -5,7 +5,6 @@
             <router-link :to="{ name: 'shops.create' }">
                 <PlusButton></PlusButton>
             </router-link>
-            <SearchBar class="ml-auto"></SearchBar>
         </div>
         <div class="mt-2 sm:mt-4">
             <Loading v-if="isLoading">Loading shops ...</Loading>
@@ -24,7 +23,6 @@
 
 <script>
 import Heading from '../../StyledComponents/Heading';
-import SearchBar from '../../SearchBar';
 import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import Loading from '../../Loading';
 import CardGrid from '../../StyledComponents/CardGrid';
@@ -36,7 +34,6 @@ const ShopRepository = RepositoryFactory.get('shop');
 export default {
     components: {
         Heading,
-        SearchBar,
         PlusButton,
         Loading,
         CardGrid,
