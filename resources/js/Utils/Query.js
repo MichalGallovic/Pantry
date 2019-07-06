@@ -9,6 +9,7 @@ export default {
         return query.join('&');
     },
     make (path, parameters = {}) {
+        parameters = this.filterEmptyParameters(parameters);
         if (Object.keys(parameters).length === 0) {
             return path;
         }
@@ -16,5 +17,17 @@ export default {
         const query = this.serialize(parameters);
 
         return `${path}?${query}`;
+    },
+    filterEmptyParameters (parameters) {
+        for (let key in parameters) {
+            const isEmpty = parameters.hasOwnProperty(key) &&
+                (parameters[key] === null || parameters[key] === undefined);
+
+            if (isEmpty) {
+                delete parameters[key];
+            }
+        }
+
+        return parameters;
     }
 };

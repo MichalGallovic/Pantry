@@ -3,15 +3,14 @@
         <Heading>Shop detail</Heading>
         <div class="flex flex-wrap mt-4">
             <div class="w-full md:w-1/2">
-                <TextLabel class="block">Shop item</TextLabel>
                 <Card class="w-64" :heading="shop.name"></Card>
                 <div class="mt-4">
                     <router-link :to="{ name: 'shops.edit', params: { id: shop.id } }"><Button class="btn-grey">Edit</Button></router-link>
                     <Button class="text-gray-600" @click.native="askQuestion = true">Delete</Button>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 mt-4">
-                <TextLabel>Groceries from Shop</TextLabel>
+            <div class="w-full md:w-1/2">
+                <TextLabel>Groceries of {{ shop.name }}</TextLabel>
                 <div class="lg:w-2/3">
                     <SearchBar @change="searchGroceries" class="w-full"></SearchBar>
                     <div class="mt-2 w-full">
@@ -23,6 +22,12 @@
                             <ListItem :text="grocery.name" class="w-full mt-2"></ListItem>
                         </router-link>
                     </div>
+                    <Pagination
+                        class="mt-4"
+                        @change="newPage => currentPage = newPage"
+                        :current-page="currentPage"
+                        :last-page="lastPage"
+                    ></Pagination>
                 </div>
             </div>
         </div>
@@ -49,11 +54,14 @@ import ListItem from '../../StyledComponents/ListItem/ListItem';
 import Card from '../../StyledComponents/Card';
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 import SearchBar from "../../SearchBar";
+import Pagination from '../../Pagination';
+import WithPagination from '../../Mixins/WithPagination';
 
 const ShopRepository = RepositoryFactory.get('shop');
 
 export default {
     props: ['id'],
+    mixins: [WithPagination],
     components: {
         SearchBar,
         Heading,
@@ -62,7 +70,8 @@ export default {
         DeleteDialog,
         ListItem,
         TextLabel,
-        Card
+        Card,
+        Pagination
     },
     data() {
         return {
@@ -85,9 +94,16 @@ export default {
             await ShopRepository.delete(this.id);
             this.$router.push({ name: 'shops'});
         },
-        async searchGroceries(term = '') {
-            const { data, meta } = await ShopRepository.searchGroceries(this.id, term);
+        async searchGroceries(term, page = 1) {
+            this.query = term;
+            const { data, meta } = await ShopRepository.searchGroceries(this.id, term, page);
             this.groceries = data;
+            this.setPagination(meta.current_page, meta.last_page)
+        }
+    },
+    watch: {
+        currentPage (newPage) {
+            this.searchGroceries(this.query, newPage);
         }
     }
 };

@@ -87,10 +87,10 @@ import Error from '../../StyledComponents/Form/WithErrors/Error';
 import SquareItem from '../../StyledComponents/SquareItem';
 import TextLabel from '../../StyledComponents/Form/TextLabel';
 import Button from '../../StyledComponents/Buttons/Button';
-import FormHandling from '../../Mixins/FormHandling';
-import FormatGroceries from '../../Mixins/FormatGroceries';
-import FormatUnitTypes from '../../Mixins/FormatUnitTypes';
-import Groceries from '../../Mixins/Groceries';
+import FormHandling from '../../Mixins/WithFormHandling';
+import FormatGroceries from '../../Mixins/WithFormatGroceries';
+import FormatUnitTypes from '../../Mixins/WithFormatUnitTypes';
+import Groceries from '../../Mixins/WithGroceries';
 
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 

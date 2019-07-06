@@ -31,8 +31,8 @@ import SearchBar from '../../SearchBar';
 import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import SquareGrid from '../../StyledComponents/SquareGrid';
 import SquareItem from '../../StyledComponents/SquareItem';
-import FormatGroceries from '../../Mixins/FormatGroceries';
-import FormatUnitTypes from '../../Mixins/FormatUnitTypes';
+import FormatGroceries from '../../Mixins/WithFormatGroceries';
+import FormatUnitTypes from '../../Mixins/WithFormatUnitTypes';
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 
 const GroceryRepository = RepositoryFactory.get('grocery');

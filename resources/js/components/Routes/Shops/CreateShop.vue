@@ -33,7 +33,7 @@ import AutoComplete from '../../AutoComplete';
 import AddButton from '../../StyledComponents/Buttons/AddButton';
 import Button from '../../StyledComponents/Buttons/Button';
 import {RepositoryFactory} from "../../../Repositories/RepositoryFactory";
-import FormHandling from '../../Mixins/FormHandling';
+import FormHandling from '../../Mixins/WithFormHandling';
 import ListItem from "../../StyledComponents/ListItem/ListItem";
 import Card from '../../StyledComponents/Card';
 

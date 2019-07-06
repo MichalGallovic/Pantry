@@ -3,7 +3,6 @@
         <Heading>Grocery detail</Heading>
         <div class="flex flex-wrap mt-4">
             <div class="w-64">
-                <TextLabel class="block">Grocery item</TextLabel>
                 <SquareItem
                     v-if="grocery"
                     :title="grocery.name"
@@ -38,9 +37,9 @@ import Button from '../../StyledComponents/Buttons/Button';
 import DeleteDialog from '../../StyledComponents/Modals/DeleteDialog';
 import TextLabel from '../../StyledComponents/Form/TextLabel';
 import SquareItem from '../../StyledComponents/SquareItem';
-import Groceries from '../../Mixins/Groceries';
-import FormatGroceries from '../../Mixins/FormatGroceries';
-import FormatUnitTypes from '../../Mixins/FormatUnitTypes';
+import Groceries from '../../Mixins/WithGroceries';
+import FormatGroceries from '../../Mixins/WithFormatGroceries';
+import FormatUnitTypes from '../../Mixins/WithFormatUnitTypes';
 
 export default {
     props: ['id'],
