@@ -6,10 +6,8 @@ export default {
     paginate (perPage = 10, relations = ['shop']) {
         return Repository.get(resource, { paginate: perPage, embed: relations});
     },
-    search (term) {
-        const path = `${resource}/search`;
-
-        return Repository.get(path, { q: term });
+    search (term, relations = ['shop']) {
+        return Repository.get(resource, { q: term, embed: relations });
     },
     find (id, relations = ['shop']) {
         const path = `${resource}/${id}`;
