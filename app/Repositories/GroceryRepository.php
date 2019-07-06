@@ -102,4 +102,15 @@ class GroceryRepository extends EloquentRepository implements CrudRepository
     {
         return $this->grocery->where('name', 'LIKE', "%{$query}%")->limit($limit)->get();
     }
+
+    /**
+     * @param string $id
+     * @param int $perPage
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getByShopId($id, $perPage = 10)
+    {
+        return $this->grocery->where('shop_id', $id)->paginate($perPage);
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\RecipeApiController;
 use App\Http\Controllers\Api\SearchGroceriesApiController;
 use App\Http\Controllers\Api\SettingsApiController;
 use App\Http\Controllers\Api\ShopApiController;
+use App\Http\Controllers\Api\ShopGroceriesApiController;
 use App\Http\Controllers\Api\ShoppingListItemApiController;
 use App\Http\Controllers\Api\UnitTypeApiController;
 use App\Http\Controllers\Api\ShoppingListApiController;
@@ -31,6 +32,8 @@ Route::get('/', function (Router $router) {
 });
 
 Route::name('api.')->group(function () {
+    Route::get('shops/{id}/groceries', ['uses' => ShopGroceriesApiController::class, 'as' => 'shops.groceries.index']);
+
     Route::resource('shops', ShopApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
