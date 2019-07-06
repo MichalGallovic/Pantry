@@ -27,7 +27,11 @@ class ShopGroceriesApiController extends ApiController
      */
     public function __invoke(Request $request, $id)
     {
-        $groceries = $this->grocery->getByShopId($id, $this->pagination);
+        if ($request->has('q')) {
+            $groceries = $this->grocery->searchByShopId($request->get('q'), $id, $this->pagination);
+        } else {
+            $groceries = $this->grocery->getByShopId($id, $this->pagination);
+        }
 
         return $this->respondWithCollection(GroceryResource::collection($groceries));
     }

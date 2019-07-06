@@ -31,7 +31,13 @@ class GroceryApiController extends ApiController
     {
         $relations = $this->getEmbeddedRelations($request);
 
-        $groceries = $this->grocery->withRelations($relations)->paginate($this->pagination);
+        $groceries = $this->grocery->withRelations($relations);
+
+        if ($request->has('q')) {
+            $groceries = $groceries->search($request->get('q'), $this->pagination);
+        } else {
+            $groceries = $groceries->paginate($this->pagination);
+        }
 
         return $this->respondWithCollection(GroceryResource::collection($groceries));
     }

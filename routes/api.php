@@ -32,13 +32,11 @@ Route::get('/', function (Router $router) {
 });
 
 Route::name('api.')->group(function () {
-    Route::get('shops/{id}/groceries', ['uses' => ShopGroceriesApiController::class, 'as' => 'shops.groceries.index']);
 
+    Route::get('shops/{id}/groceries', ['uses' => ShopGroceriesApiController::class, 'as' => 'shops.groceries.index']);
     Route::resource('shops', ShopApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
-
-    Route::get('groceries/search', SearchGroceriesApiController::class);
 
     Route::resource('groceries', GroceryApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']

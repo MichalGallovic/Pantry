@@ -93,14 +93,20 @@ class GroceryRepository extends EloquentRepository implements CrudRepository
     }
 
     /**
-     * @param string $query
-     * @param int $limit
+     * @param string $term
+     * @param int $perPage
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function search($query, $limit)
+    public function search($term, $perPage = 10)
     {
-        return $this->grocery->where('name', 'LIKE', "%{$query}%")->limit($limit)->get();
+        $query = $this->grocery->where('name', 'LIKE', "%{$term}%");
+
+        if ($this->withRelations) {
+            $query = $query->with($this->withRelations);
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
@@ -112,5 +118,20 @@ class GroceryRepository extends EloquentRepository implements CrudRepository
     public function getByShopId($id, $perPage = 10)
     {
         return $this->grocery->where('shop_id', $id)->paginate($perPage);
+    }
+
+    /**
+     * @param string $term
+     * @param int $id
+     * @param int $perPage
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function searchByShopId($term, $id, $perPage = 10)
+    {
+        return $this->grocery
+            ->where('shop_id', $id)
+            ->where('name', 'LIKE', "%{$term}%")
+            ->paginate($perPage);
     }
 }
