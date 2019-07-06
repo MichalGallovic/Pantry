@@ -13,10 +13,15 @@
             <div class="w-full md:w-1/2 mt-4">
                 <TextLabel>Groceries from Shop</TextLabel>
                 <div class="lg:w-2/3">
-                    <SearchBar class="w-full"></SearchBar>
+                    <SearchBar @change="searchGroceries" class="w-full"></SearchBar>
                     <div class="mt-2 w-full">
-                        <ListItem></ListItem>
-                        <ListItem v-for="grocery in shop.groceries" :key="grocery.id" class="w-full"></ListItem>
+                        <router-link
+                            v-for="grocery in groceries"
+                            :key="grocery.id"
+                            :to="{ name: 'groceries.show', params: { id: grocery.id } }"
+                        >
+                            <ListItem :text="grocery.name" class="w-full mt-2"></ListItem>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -62,11 +67,14 @@ export default {
     data() {
         return {
             shop: null,
+            groceries: [],
+            query: null,
             askQuestion: false
         }
     },
     created() {
         this.fetchShop();
+        this.searchGroceries();
     },
     methods: {
         async fetchShop() {
@@ -76,6 +84,10 @@ export default {
         async deleteShop() {
             await ShopRepository.delete(this.id);
             this.$router.push({ name: 'shops'});
+        },
+        async searchGroceries(term = '') {
+            const { data, meta } = await ShopRepository.searchGroceries(this.id, term);
+            this.groceries = data;
         }
     }
 };

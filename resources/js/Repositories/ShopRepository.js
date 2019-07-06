@@ -23,5 +23,10 @@ export default {
         const path = `${resource}/${id}`;
 
         return Repository.delete(path);
+    },
+    searchGroceries(id, term) {
+        const path = `${resource}/${id}/groceries`;
+
+        return Repository.get(path, {q: term});
     }
 }
