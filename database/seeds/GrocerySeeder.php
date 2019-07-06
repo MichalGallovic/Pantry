@@ -2,6 +2,8 @@
 
 use App\Grocery;
 use App\Repositories\ShopRepository;
+use App\Repositories\UnitTypeRepository;
+use App\Shop;
 use Illuminate\Database\Seeder;
 
 class GrocerySeeder extends Seeder
@@ -9,12 +11,17 @@ class GrocerySeeder extends Seeder
     /** @var ShopRepository */
     private $shop;
 
+    /** @var UnitTypeRepository */
+    private $unitType;
+
     /**
-     * @param ShopRepository $shop
+     * @param ShopRepository     $shop
+     * @param UnitTypeRepository $unitType
      */
-    public function __construct(ShopRepository $shop)
+    public function __construct(ShopRepository $shop, UnitTypeRepository $unitType)
     {
-        $this->shop = $shop;
+        $this->shop     = $shop;
+        $this->unitType = $unitType;
     }
 
     /**
@@ -24,9 +31,19 @@ class GrocerySeeder extends Seeder
      */
     public function run()
     {
-        $shops = $this->shop->all();
+        $unitTypes = $this->unitType->all();
 
-        factory(Grocery::class, 10)->state('fruit')->create(['shop_id' => $shops[0]->id]);
-        factory(Grocery::class, 10)->state('vegetable')->create(['shop_id' => $shops[1]->id]);
+        $this->shop
+            ->all()
+            ->each(function (Shop $shop) use ($unitTypes) {
+                collect(range(0, random_int(20, 50)))
+                    ->each(function() use ($shop, $unitTypes) {
+                        $attributes = [
+                            'shop_id' => $shop->id,
+                            'unit_type_id' => $unitTypes->random()->id
+                        ];
+                        factory(Grocery::class)->create($attributes);
+                    });
+            });
     }
 }

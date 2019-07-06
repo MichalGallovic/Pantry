@@ -14,5 +14,6 @@ class ShopSeeder extends Seeder
     {
         factory(Shop::class)->create(['name' => 'Lidl']);
         factory(Shop::class)->create(['name' => 'Kaufland']);
+        factory(Shop::class)->create(['name' => 'Tesco']);
     }
 }

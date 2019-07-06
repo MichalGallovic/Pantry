@@ -39,6 +39,20 @@ class GroceryRepository extends EloquentRepository implements CrudRepository
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function all()
+    {
+        $query = $this->grocery->orderByDesc('updated_at');
+
+        if ($this->withRelations) {
+            $query = $query->with($this->withRelations);
+        }
+
+        return $query->get();
+    }
+
+    /**
      * @inheritDoc
      */
     public function create(array $attributes)
