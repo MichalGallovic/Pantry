@@ -17,7 +17,8 @@ class ShopResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'groceries' => GroceryResource::collection($this->whenLoaded('groceries'))
+            'groceries' => GroceryResource::collection($this->whenLoaded('groceries')),
+            'groceries_count' => $this->groceries()->count()
         ];
     }
 }

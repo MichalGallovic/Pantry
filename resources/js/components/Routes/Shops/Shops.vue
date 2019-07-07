@@ -14,7 +14,10 @@
                     v-for="shop in shops"
                     :key="shop.id"
                 >
-                    <Card :heading="shop.name"></Card>
+                    <Card
+                        :heading="shop.name"
+                        :sub-heading="formatShopGroceries(shop.groceries_count)"
+                    ></Card>
                 </router-link>
             </CardGrid>
         </div>
@@ -27,11 +30,13 @@ import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import Loading from '../../Loading';
 import CardGrid from '../../StyledComponents/CardGrid';
 import Card from '../../StyledComponents/Card';
+import WithFormatShops from '../../Mixins/WithFormatShops';
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 
 const ShopRepository = RepositoryFactory.get('shop');
 
 export default {
+    mixins: [WithFormatShops],
     components: {
         Heading,
         PlusButton,

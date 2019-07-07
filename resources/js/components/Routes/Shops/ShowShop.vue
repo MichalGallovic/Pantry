@@ -3,7 +3,12 @@
         <Heading>Shop detail</Heading>
         <div class="flex flex-wrap mt-4">
             <div class="w-full md:w-1/2">
-                <Card class="w-64" :heading="shop.name"></Card>
+                <Card
+                    class="w-64"
+                    :heading="shop.name"
+                    :sub-heading="formatShopGroceries(shop.groceries_count)"
+                >
+                </Card>
                 <div class="mt-4">
                     <router-link :to="{ name: 'shops.edit', params: { id: shop.id } }"><Button class="btn-grey">Edit</Button></router-link>
                     <Button class="text-gray-600" @click.native="askQuestion = true">Delete</Button>
@@ -56,12 +61,13 @@ import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 import SearchBar from "../../SearchBar";
 import Pagination from '../../Pagination';
 import WithPagination from '../../Mixins/WithPagination';
+import WithFormatShops from '../../Mixins/WithFormatShops';
 
 const ShopRepository = RepositoryFactory.get('shop');
 
 export default {
     props: ['id'],
-    mixins: [WithPagination],
+    mixins: [WithPagination, WithFormatShops],
     components: {
         SearchBar,
         Heading,

@@ -5,7 +5,6 @@
             <router-link :to="{ name: 'shopping-lists.create' }">
                 <PlusButton></PlusButton>
             </router-link>
-            <SearchBar class="ml-auto"></SearchBar>
         </div>
     </section>
 </template>
