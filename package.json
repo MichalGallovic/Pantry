@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "test": "node_modules/jest/bin/jest.js resources/js/tests",
+        "test": "cross-env NODE_ENV=test node_modules/jest/bin/jest.js resources/js/tests",
         "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -11,17 +11,19 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@babel/core": "^7.5.0",
-        "@babel/preset-env": "^7.5.0",
         "@fullhuman/postcss-purgecss": "^1.2.0",
+        "@vue/test-utils": "^1.0.0-beta.29",
         "babel-jest": "^24.8.0",
+        "babel-preset-env": "^1.7.0",
         "cross-env": "^5.1",
         "jest": "^24.8.0",
+        "jest-serializer-vue": "^2.0.2",
         "laravel-mix": "^4.0.7",
         "less": "^3.9.0",
         "less-loader": "^5.0.0",
         "purgecss-whitelister": "^2.4.0",
         "resolve-url-loader": "^2.3.1",
+        "vue-jest": "^3.0.4",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
