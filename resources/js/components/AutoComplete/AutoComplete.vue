@@ -3,7 +3,7 @@
         <div class="flex">
             <SearchBar
                 class="w-full"
-                @change="query => $emit('change', query)"
+                @change="search"
                 @focus="show"
                 ref="searchBar"
             >
@@ -21,15 +21,15 @@
 </template>
 
 <script>
-import SearchBar from './SearchBar';
-import AddButton from './StyledComponents/Buttons/AddButton';
+import SearchBar from '../SearchBar';
+import AddButton from '../StyledComponents/Buttons/AddButton';
 import Suggestions from './Suggestions';
 
 export default {
-    props: ['suggestions'],
     data () {
         return {
             query: '',
+            suggestions: [],
             suggestionsVisible: false,
             isLoading: false,
             firstShow: false
@@ -41,12 +41,14 @@ export default {
         Suggestions
     },
     methods: {
+        search (query) {},
+        showSuggestionsFirstTime () {},
         show () {
             this.$emit('show');
             this.suggestionsVisible = true;
 
             if (!this.firstShow) {
-                this.$emit('show:first');
+                this.showSuggestionsFirstTime();
                 this.firstShow = true;
             }
         },

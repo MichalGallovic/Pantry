@@ -5,7 +5,7 @@ const ShoppingLists = () => import('./components/Routes/ShoppingList/ShoppingLis
 const ShowShoppingList = () => import('./components/Routes/ShoppingList/ShowShoppingList');
 const CreateShoppingList = () => import('./components/Routes/ShoppingList/CreateShoppingList');
 const Groceries = () => import('./components/Routes/Groceries/Groceries');
-import CreateGrocery from './components/Routes/Groceries/CreateGrocery';
+const CreateGrocery = () => import('./components/Routes/Groceries/CreateGrocery');
 const Shops = () => import('./components/Routes/Shops/Shops');
 const CreateShop = () => import('./components/Routes/Shops/CreateShop');
 const ShowShop = () => import("./components/Routes/Shops/ShowShop");
@@ -38,14 +38,14 @@ export default {
             name: 'shopping-lists'
         },
         {
-            path: '/shopping-lists/:id',
-            component: ShowShoppingList,
-            name: 'shopping-lists.show'
-        },
-        {
             path: '/shopping-lists/create',
             component: CreateShoppingList,
             name: 'shopping-lists.create'
+        },
+        {
+            path: '/shopping-lists/:id',
+            component: ShowShoppingList,
+            name: 'shopping-lists.show'
         },
         {
             path: '/groceries',

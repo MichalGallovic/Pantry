@@ -85,7 +85,7 @@ export default {
             }, ['desc']);
         },
         async fetchGroceries () {
-            const { data } = await GroceryRepository.paginate();
+            const { data } = await GroceryRepository.get();
             this.groceriesByShops = this.mapGroceries(data);
         },
         async searchGroceries (term) {

@@ -7,7 +7,7 @@
                 class="ml-4 text-gray-100"
                 :class="{ 'text-gray-300': inactive }"
         >{{ text }}</span>
-        <CloseIcon @click.native="$emit('delete')" class="ml-auto mr-2 text-gray-200"></CloseIcon>
+        <CloseIcon @click.native="$emit('delete', value)" class="ml-auto mr-2 text-gray-200"></CloseIcon>
     </li>
 </template>
 
@@ -23,6 +23,9 @@ export default {
     props: {
         text: {
             default: "List Item text"
+        },
+        value: {
+            default: () => {}
         },
         inactive: {
             default: false

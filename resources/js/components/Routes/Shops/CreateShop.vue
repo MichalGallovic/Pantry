@@ -29,7 +29,6 @@ import Heading from '../../StyledComponents/Heading';
 import Label from '../../StyledComponents/Form/Label';
 import TextInput from '../../StyledComponents/Form/WithErrors/TextInput';
 import TextLabel from '../../StyledComponents/Form/TextLabel';
-import AutoComplete from '../../AutoComplete';
 import AddButton from '../../StyledComponents/Buttons/AddButton';
 import Button from '../../StyledComponents/Buttons/Button';
 import {RepositoryFactory} from "../../../Repositories/RepositoryFactory";
@@ -49,7 +48,6 @@ export default {
         TextInput,
         AddButton,
         Button,
-        AutoComplete,
         Card
     },
     data () {

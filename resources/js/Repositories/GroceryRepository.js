@@ -3,8 +3,11 @@ import Repository from './Repository';
 const resource = '/groceries';
 
 export default {
-    paginate (perPage = 10, relations = ['shop']) {
-        return Repository.get(resource, { paginate: perPage, embed: relations});
+    paginate (page = 1, relations = ['shop']) {
+        return Repository.get(resource, { page: page, embed: relations});
+    },
+    get (relations = ['shop']) {
+        return Repository.get(resource, { embed: relations });
     },
     search (term, relations = ['shop']) {
         return Repository.get(resource, { q: term, embed: relations });

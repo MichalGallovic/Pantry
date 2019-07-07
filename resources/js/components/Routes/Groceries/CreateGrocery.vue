@@ -3,8 +3,8 @@
         <div class="flex">
             <Heading>Add Grocery</Heading>
         </div>
-        <div class="flex flex-wrap">
-            <form class="mt-4 w-full sm:w-1/2" @submit.prevent="create">
+        <div class="flex flex-wrap mt-4">
+            <form class="w-full sm:w-1/2" @submit.prevent="create">
                 <div>
                     <Label class="block">Grocery name</Label>
                     <Error v-for="(error, i) in errorMessages.name" :error="error" :key="i"></Error>
