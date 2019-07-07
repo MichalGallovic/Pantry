@@ -6,6 +6,21 @@
                 <PlusButton></PlusButton>
             </router-link>
         </div>
+        <div class="mt-2 sm:mt-4">
+            <Loading v-if="isLoading">Loading shopping lists ...</Loading>
+            <CardGrid>
+                <router-link
+                    :to="{ name: 'shopping-lists.show', params: { 'id': shoppingList.id} }"
+                    v-for="shoppingList in shoppingLists"
+                    :key="shoppingList.id"
+                >
+                    <Card
+                        :heading="shoppingList.name"
+                        :sub-heading="formatShoppingListItems(shoppingList.shopping_list_items_count)"
+                    ></Card>
+                </router-link>
+            </CardGrid>
+        </div>
     </section>
 </template>
 
@@ -13,12 +28,40 @@
 import Heading from '../../StyledComponents/Heading';
 import SearchBar from '../../SearchBar';
 import PlusButton from '../../StyledComponents/Buttons/PlusButton';
+import Loading from '../../Loading';
+import CardGrid from '../../StyledComponents/CardGrid';
+import Card from '../../StyledComponents/Card';
+
+import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
+const ShoppingListRepository = RepositoryFactory.get('shoppingList');
 
 export default {
     components: {
         Heading,
         PlusButton,
-        SearchBar
+        SearchBar,
+        Loading,
+        CardGrid,
+        Card
+    },
+    data () {
+        return {
+            isLoading: false,
+            shoppingLists: []
+        }
+    },
+    created () {
+        this.fetchShoppingLists();
+    },
+    methods: {
+        formatShoppingListItems (shoppingListItemsCount) {
+            return `${shoppingListItemsCount} items`
+        },
+        async fetchShoppingLists () {
+            const { data } = await ShoppingListRepository.get();
+            this.isLoading = false;
+            this.shoppingLists = data;
+        }
     }
 };
 </script>

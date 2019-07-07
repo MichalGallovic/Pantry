@@ -12,6 +12,6 @@ class ShoppingListSeeder extends Seeder
      */
     public function run()
     {
-        factory(ShoppingList::class, 10)->create();
+        factory(ShoppingList::class, 3)->state('with-mixed-items')->create();
     }
 }

@@ -24,6 +24,7 @@ $factory->define(ShoppingList::class, function (Faker $faker) {
 
 $factory->state(ShoppingList::class, 'with-items', []);
 $factory->state(ShoppingList::class, 'with-grocery-items', []);
+$factory->state(ShoppingList::class, 'with-mixed-items', []);
 
 $factory->afterCreatingState(ShoppingList::class, 'with-items', function (ShoppingList $shoppingList) {
     $shoppingListItems = collect(range(0,10))
@@ -41,4 +42,19 @@ $factory->afterCreatingState(ShoppingList::class, 'with-grocery-items', function
         });
 
     $shoppingList->shoppingListItems()->saveMany($shoppingListItems);
+});
+
+$factory->afterCreatingState(ShoppingList::class, 'with-mixed-items', function (ShoppingList $shoppingList) {
+    collect(range(0,random_int(5, 10)))
+        ->map(function () use ($shoppingList) {
+            return factory(ShoppingListItem::class)
+                ->state('with-grocery')
+                ->create(['shopping_list_id' => $shoppingList->id]);
+        });
+
+    collect(range(0, random_int(5, 10)))
+        ->map(function () use ($shoppingList) {
+            return factory(ShoppingListItem::class)
+                ->create(['shopping_list_id' => $shoppingList->id]);
+        });
 });
