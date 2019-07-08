@@ -60,8 +60,8 @@
                     </div>
                 </div>
                 <div class="mt-4 text-right">
-                    <Button class="btn-grey" type="submit">Save</Button>
                     <router-link :to="{ name: 'groceries' }"><Button class="text-gray-600">Cancel</Button></router-link>
+                    <Button class="btn-grey" type="submit">Save</Button>
                 </div>
             </form>
             <div class="hidden sm:block ml-8 mt-4">

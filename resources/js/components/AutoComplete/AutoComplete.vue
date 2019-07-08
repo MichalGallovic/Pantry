@@ -42,13 +42,14 @@ export default {
     },
     methods: {
         search (query) {},
-        showSuggestionsFirstTime () {},
+        // Ideal place to prefetch suggestions
+        beforeFirstShow () {},
         show () {
             this.$emit('show');
             this.suggestionsVisible = true;
 
             if (!this.firstShow) {
-                this.showSuggestionsFirstTime();
+                this.beforeFirstShow();
                 this.firstShow = true;
             }
         },

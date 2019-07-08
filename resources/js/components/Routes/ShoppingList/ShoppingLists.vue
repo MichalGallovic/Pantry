@@ -16,7 +16,7 @@
                 >
                     <Card
                         :heading="shoppingList.name"
-                        :sub-heading="formatShoppingListItems(shoppingList.shopping_list_items_count)"
+                        :sub-heading="formatShoppingListItems(shoppingList.items_count)"
                     ></Card>
                 </router-link>
             </CardGrid>

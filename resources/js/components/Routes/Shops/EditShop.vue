@@ -12,7 +12,8 @@
                             placeholder="Kaufland">
                     </TextInput>
                 </div>
-                <div class="mt-4">
+                <div class="mt-4 text-right">
+                    <router-link :to="{ name: 'shops' }"><Button class="text-gray-600">Cancel</Button></router-link>
                     <Button class="btn-grey" type="submit">Save</Button>
                 </div>
             </form>
