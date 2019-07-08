@@ -22,10 +22,7 @@ $factory->define(ShoppingListItem::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
         'order' => random_int(0, 100),
-        'completed' => $faker->boolean(),
-        'shopping_list_id' => function () {
-            return factory(ShoppingList::class)->create()->id;
-        }
+        'completed' => $faker->boolean()
     ];
 });
 
@@ -33,6 +30,7 @@ $factory->state(ShoppingListItem::class, 'with-grocery', function () {
     return [
         'grocery_id' => function () {
             return factory(Grocery::class)->state('fruit')->create()->id;
-        }
+        },
+        'name' => null
     ];
 });

@@ -14,11 +14,16 @@ class ShoppingListResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $definition = [
             'id' => $this->id,
             'name' => $this->name,
-            'shopping_list_items' => ShoppingListItemResource::collection($this->whenLoaded('shoppingListItems')),
-            'shopping_list_items_count' => $this->shoppingListItems()->count()
+            'items' => ShoppingListItemResource::collection($this->whenLoaded('items'))
         ];
+
+        if ($this->items_count) {
+            $definition['items_count'] = $this->items_count;
+        }
+
+        return $definition;
     }
 }

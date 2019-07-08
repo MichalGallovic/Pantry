@@ -23,8 +23,8 @@ class ShoppingList extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function shoppingListItems()
+    public function items()
     {
-        return $this->hasMany(\App\ShoppingListItem::class);
+        return $this->hasMany(\App\ShoppingListItem::class, 'shopping_list_id');
     }
 }

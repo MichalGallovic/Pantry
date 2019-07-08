@@ -12,11 +12,11 @@ class StoreShoppingListItemRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required_without:grocery_id',
             'order' => 'required|integer',
             'completed' => 'required|boolean',
             'shopping_list_id' => 'required',
-            'grocer_id' => 'nullable|integer'
+            'grocery_id' => 'required_without:name|integer'
         ];
     }
 }

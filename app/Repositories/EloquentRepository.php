@@ -20,4 +20,12 @@ abstract class EloquentRepository
         $this->withRelations = array_keys(array_intersect($this->allowedRelations, $relations));
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getAllowedRelations()
+    {
+        return array_keys($this->allowedRelations);
+    }
 }

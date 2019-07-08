@@ -12,12 +12,12 @@ class ShoppingListItem extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'order', 'completed', 'shopping_list_id'
+        'name', 'order', 'completed', 'shopping_list_id', 'grocery_id'
     ];
 
     /** @var array */
     protected $hidden = [
-        'created_at', 'updated_at', 'shopping_list_id', 'grocery_id'
+        'created_at', 'updated_at'
     ];
 
     /**

@@ -15,12 +15,12 @@ class CreateShoppingListItemsTable extends Migration
     {
         Schema::create('shopping_list_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->integer('order');
             $table->boolean('completed');
             $table->unsignedBigInteger('grocery_id')->nullable()->default(null);
             $table->foreign('grocery_id')->references('id')->on('groceries');
-            $table->unsignedBigInteger('shopping_list_id')->nullable();
+            $table->unsignedBigInteger('shopping_list_id');
             $table->foreign('shopping_list_id')->references('id')->on('shopping_lists')->onDelete('cascade');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

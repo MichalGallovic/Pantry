@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\CrudRepository;
 use App\ShoppingList;
+use App\ShoppingListItem;
 
 class ShoppingListRepository extends EloquentRepository implements CrudRepository
 {
@@ -12,7 +13,7 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
 
     /** @var array */
     protected $allowedRelations = [
-        'shoppingListItems' => 'shopping-list-items',
+        'items' => 'items',
     ];
 
     /**
@@ -29,10 +30,15 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     public function paginate($perPage = 10)
     {
         if ($this->withRelations) {
-            return $this->shoppingList->with($this->withRelations)->paginate($perPage);
+            return $this->shoppingList
+                ->withCount($this->withRelations)
+                ->with($this->withRelations)
+                ->paginate($perPage);
         }
 
-        return $this->shoppingList->paginate($perPage);
+        return $this->shoppingList
+            ->withCount($this->getAllowedRelations())
+            ->paginate($perPage);
     }
 
     /**
@@ -40,7 +46,19 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
      */
     public function create(array $attributes)
     {
-        return $this->shoppingList->create($attributes);
+        $shoppingList = $this->shoppingList->create(['name' => $attributes['name']]);
+
+        $items = $shoppingList
+            ->items()
+            ->saveMany(
+                collect($attributes['items'])->map(function ($item) {
+                    return new ShoppingListItem($item);
+                })
+            );
+
+        $shoppingList['items_count'] = $items->count();
+
+        return $shoppingList;
     }
 
     /**
@@ -49,10 +67,15 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     public function find($id)
     {
         if ($this->withRelations) {
-            return $this->shoppingList->with($this->withRelations)->find($id);
+            return $this->shoppingList
+                ->withCount($this->withRelations)
+                ->with($this->withRelations)
+                ->find($id);
         }
 
-        return $this->shoppingList->find($id);
+        return $this->shoppingList
+            ->withCount($this->getAllowedRelations())
+            ->find($id);
     }
 
     /**
@@ -61,10 +84,15 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     public function findOrFail($id)
     {
         if ($this->withRelations) {
-            return $this->shoppingList->with($this->withRelations)->findOrFail($id);
+            return $this->shoppingList
+                ->withCount($this->withRelations)
+                ->with($this->withRelations)
+                ->findOrFail($id);
         }
 
-        return $this->shoppingList->findOrFail($id);
+        return $this->shoppingList
+            ->withCount($this->getAllowedRelations())
+            ->findOrFail($id);
     }
 
     /**

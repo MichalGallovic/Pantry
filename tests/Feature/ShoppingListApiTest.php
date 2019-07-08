@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Grocery;
 use App\ShoppingList;
+use App\ShoppingListItem;
 use Illuminate\Http\JsonResponse;
 use Tests\ApiTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,29 +20,34 @@ class ShoppingListApiTest extends ApiTestCase
 
     public function test_shopping_list_embedded_relations()
     {
-        $this->withoutExceptionHandling();
-        factory(ShoppingList::class)->create();
+        factory(ShoppingList::class)->state('with-items')->create();
 
-        $grocery = ShoppingList::with(['shoppingListItems'])->first();
+        $grocery = ShoppingList::with('items')->first();
+        $grocery->items = $grocery->items->makeHidden(['shopping_list_id', 'grocery_id'])->toArray();
 
-        $response = $this->json('GET', route('api.shopping-lists.index'), ['embed' => 'shopping-list-items']);
+        $response = $this->json('GET', route('api.shopping-lists.index'), ['embed' => 'items']);
 
         $this->assertResponse($response, [$grocery->toArray()]);
     }
 
     public function test_create_shopping_list()
     {
-        /** @var array */
-        $newShoppingList = factory(ShoppingList::class)->make();
+        $newShoppingList = $this->makeShoppingListWithItems();
 
-        $response = $this->post(route('api.shopping-lists.store'), $newShoppingList->toArray());
+        $response = $this->post(route('api.shopping-lists.store'), $newShoppingList);
 
-        $this->assertResponse($response, $newShoppingList->toArray(), JsonResponse::HTTP_CREATED);
+        $shoppingList = ShoppingList::first();
+
+        $this->assertResponse(
+            $response,
+            ['id' => $shoppingList->id, 'name' => $shoppingList->name, 'items_count' => 10],
+            JsonResponse::HTTP_CREATED
+        );
     }
 
     public function test_cannot_create_duplicate_shopping_lists()
     {
-        $newShoppingList = ['name' => 'Shopping list name'];
+        $newShoppingList = $this->makeShoppingListWithItems();
 
         $this->post(route('api.shopping-lists.store'), $newShoppingList);
         $response = $this->post(route('api.shopping-lists.store'), $newShoppingList);
@@ -60,9 +67,10 @@ class ShoppingListApiTest extends ApiTestCase
     public function test_can_retrieve_shopping_list_relations()
     {
         factory(ShoppingList::class)->state('with-items')->create();
-        $shoppingList = ShoppingList::with('shoppingListItems')->first();
+        $shoppingList = ShoppingList::with('items')->first();
+        $shoppingList->items = $shoppingList->items->makeHidden(['grocery_id', 'shopping_list_id'])->toArray();
 
-        $response = $this->json('GET', route('api.shopping-lists.show', $shoppingList->id), ['embed' => 'shopping-list-items']);
+        $response = $this->json('GET', route('api.shopping-lists.show', $shoppingList->id), ['embed' => 'items']);
 
         $this->assertResponse($response, $shoppingList->toArray());
     }
@@ -109,5 +117,29 @@ class ShoppingListApiTest extends ApiTestCase
         $response = $this->delete(route('api.shopping-lists.destroy', 1));
 
         $this->assertError($response, JsonResponse::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @return array
+     */
+    private function makeShoppingListWithItems()
+    {
+        /** @var array */
+        $newShoppingList = factory(ShoppingList::class)->make();
+        $noGroceryItems  = factory(ShoppingListItem::class, 5)->make();
+        $groceryItems    = factory(ShoppingListItem::class, 5)
+            ->state('with-grocery')
+            ->make()
+            ->map(function (ShoppingListItem $item) {
+                return [
+                    'order'      => $item->order,
+                    'completed'  => $item->completed,
+                    'grocery_id' => $item->grocery_id
+                ];
+            });
+
+        $newShoppingList->items = $groceryItems->concat($noGroceryItems)->toArray();
+
+        return $newShoppingList->toArray();
     }
 }
