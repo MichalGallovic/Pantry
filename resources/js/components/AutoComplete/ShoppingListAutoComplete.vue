@@ -1,3 +1,7 @@
+<template>
+
+</template>
+
 <script>
 import AutoComplete from './AutoComplete';
 import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
@@ -15,7 +19,7 @@ export default {
         search (query) {
             this.searchGroceries(query);
         },
-        showSuggestionsFirstTime () {
+        beforeFirstShow () {
             this.fetchGroceries()
         },
         async searchGroceries (query) {

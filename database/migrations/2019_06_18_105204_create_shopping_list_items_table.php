@@ -17,7 +17,7 @@ class CreateShoppingListItemsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->integer('order');
-            $table->boolean('completed');
+            $table->boolean('completed')->default(false);
             $table->unsignedBigInteger('grocery_id')->nullable()->default(null);
             $table->foreign('grocery_id')->references('id')->on('groceries');
             $table->unsignedBigInteger('shopping_list_id');
