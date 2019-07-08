@@ -82,7 +82,6 @@ export default {
             this.fetchGroceries()
         },
         async searchGroceries (query) {
-            console.log(query);
             if (query === null || query.length === 0) {
                 this.setSuggestions(this.initialSuggestions);
                 return;
