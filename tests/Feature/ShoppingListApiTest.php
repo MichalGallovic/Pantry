@@ -18,16 +18,13 @@ class ShoppingListApiTest extends ApiTestCase
         $this->assertPaginationOnRoute(ShoppingList::class, 'api.shopping-lists.index');
     }
 
-    public function test_shopping_list_embedded_relations()
+    public function test_show_shopping_list_embedded_items_with_groceries_relations()
     {
-        factory(ShoppingList::class)->state('with-items')->create();
+        $shoppingList = factory(ShoppingList::class)->state('with-grocery-items')->create();
 
-        $grocery = ShoppingList::with('items')->first();
-        $grocery->items = $grocery->items->makeHidden(['shopping_list_id', 'grocery_id'])->toArray();
+        $response = $this->json('GET', route('api.shopping-lists.show', $shoppingList->id), ['embed' => 'items-with-groceries']);
 
-        $response = $this->json('GET', route('api.shopping-lists.index'), ['embed' => 'items']);
-
-        $this->assertResponse($response, [$grocery->toArray()]);
+        $this->assertResponse($response, $shoppingList->toArray());
     }
 
     public function test_create_shopping_list()

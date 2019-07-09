@@ -14,6 +14,12 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     /** @var array */
     protected $allowedRelations = [
         'items' => 'items',
+        'items.grocery' => 'items-with-groceries'
+    ];
+
+    /** @var array */
+    protected $allowedCounts = [
+        'items' => 'items'
     ];
 
     /**
@@ -31,13 +37,13 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     {
         if ($this->withRelations) {
             return $this->shoppingList
-                ->withCount($this->withRelations)
+                ->withCount($this->withCounts)
                 ->with($this->withRelations)
                 ->paginate($perPage);
         }
 
         return $this->shoppingList
-            ->withCount($this->getAllowedRelations())
+            ->withCount($this->withCounts)
             ->paginate($perPage);
     }
 
@@ -68,13 +74,13 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     {
         if ($this->withRelations) {
             return $this->shoppingList
-                ->withCount($this->withRelations)
+                ->withCount($this->withCounts)
                 ->with($this->withRelations)
                 ->find($id);
         }
 
         return $this->shoppingList
-            ->withCount($this->getAllowedRelations())
+            ->withCount($this->withCounts)
             ->find($id);
     }
 
@@ -85,13 +91,13 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     {
         if ($this->withRelations) {
             return $this->shoppingList
-                ->withCount($this->withRelations)
+                ->withCount($this->withCounts)
                 ->with($this->withRelations)
                 ->findOrFail($id);
         }
 
         return $this->shoppingList
-            ->withCount($this->getAllowedRelations())
+            ->withCount($this->withCounts)
             ->findOrFail($id);
     }
 

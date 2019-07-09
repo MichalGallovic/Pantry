@@ -69,16 +69,16 @@ class ShoppingListItemApiTest extends ApiTestCase
         $shoppingList = factory(ShoppingList::class)->create();
         $shoppingListItem = factory(ShoppingListItem::class)->create(['shopping_list_id' => $shoppingList->id]);
 
-        $shoppingListItem['name'] = 'Updated shopping stuff';
+        $shoppingListItem['completed'] = !$shoppingListItem['completed'];
 
-        $response = $this->put(route('api.shopping-list-items.update', $shoppingListItem->id), $shoppingListItem->toArray());
+        $response = $this->put(route('api.shopping-list-items.update', $shoppingListItem->id), ['completed' => $shoppingListItem->completed]);
 
         $this->assertResponse($response, $shoppingListItem->toArray(), JsonResponse::HTTP_OK);
     }
 
     public function test_returns_error_on_updating_unknown_shopping_list_item()
     {
-        $updateData = ['name' => 'Updated shopping stuff'];
+        $updateData = ['completed' => false];
 
         $response = $this->put(route('api.shopping-list-items.update', 1), $updateData);
 

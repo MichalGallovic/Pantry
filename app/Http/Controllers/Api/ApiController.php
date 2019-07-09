@@ -23,6 +23,16 @@ class ApiController
     }
 
     /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    protected function getEmbeddedCounts(Request $request)
+    {
+        return explode(',', $request->get('embed-count'));
+    }
+
+    /**
      * @param ResourceCollection $collection
      * @param int                $statusCode
      *

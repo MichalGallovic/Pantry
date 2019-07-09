@@ -29,9 +29,11 @@ class ShoppingListApiController extends ApiController
      */
     public function index(Request $request)
     {
-        $relations = $this->getEmbeddedRelations($request);
+        $counts = $this->getEmbeddedCounts($request);
 
-        $shoppingLists = $this->shoppingList->withRelations($relations)->paginate($this->pagination);
+        $shoppingLists = $this->shoppingList
+            ->withCounts($counts)
+            ->paginate($this->pagination);
 
         return $this->respondWithCollection(ShoppingListResource::collection($shoppingLists));
     }
@@ -45,8 +47,12 @@ class ShoppingListApiController extends ApiController
     public function show(Request $request, $id)
     {
         $relations = $this->getEmbeddedRelations($request);
+        $counts = $this->getEmbeddedCounts($request);
 
-        $shoppingList = $this->shoppingList->withRelations($relations)->findOrFail($id);
+        $shoppingList = $this->shoppingList
+            ->withRelations($relations)
+            ->withCounts($counts)
+            ->findOrFail($id);
 
         return $this->respondWithResource(new ShoppingListResource($shoppingList));
     }
