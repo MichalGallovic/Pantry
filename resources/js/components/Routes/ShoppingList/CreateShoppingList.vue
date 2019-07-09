@@ -93,7 +93,7 @@ export default {
                 await ShoppingListRepository.create({
                     name: this.shoppingListName,
                     items: this.mapItems(this.items)
-                })
+                });
                 this.$router.push({ name: 'shopping-lists'});
             } catch (error) {
                 this.handleErrors(error);

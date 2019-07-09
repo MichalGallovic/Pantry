@@ -1,5 +1,6 @@
 <template>
     <li
+        @click="$emit('toggle', value)"
         class="flex items-center px-2 py-2 rounded rounded-lg cursor-pointer hover:bg-gray-800"
         :class="{ 'bg-gray-600': !inactive, 'bg-gray-500': inactive }">
         <Checkbox v-if="checkbox" :checked="inactive" class="ml-2"></Checkbox>
@@ -7,7 +8,7 @@
                 class="ml-4 text-gray-100"
                 :class="{ 'text-gray-300': inactive }"
         >{{ text }}</span>
-        <CloseIcon @click.native="$emit('delete', value)" class="ml-auto mr-2 text-gray-200"></CloseIcon>
+        <CloseIcon @click.native.stop="remove" class="ml-auto mr-2 text-gray-200"></CloseIcon>
     </li>
 </template>
 
@@ -21,9 +22,7 @@ export default {
         CloseIcon
     },
     props: {
-        text: {
-            default: "List Item text"
-        },
+        text: String,
         value: {
             default: () => {}
         },
@@ -32,6 +31,11 @@ export default {
         },
         checkbox: {
             default: false
+        }
+    },
+    methods: {
+        remove (event) {
+            this.$emit('remove', this.value);
         }
     }
 };

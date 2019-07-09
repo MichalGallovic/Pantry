@@ -45,7 +45,8 @@ export default {
         {
             path: '/shopping-lists/:id',
             component: ShowShoppingList,
-            name: 'shopping-lists.show'
+            name: 'shopping-lists.show',
+            props: true
         },
         {
             path: '/groceries',

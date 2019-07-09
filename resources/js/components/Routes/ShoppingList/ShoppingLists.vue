@@ -16,7 +16,7 @@
                 >
                     <Card
                         :heading="shoppingList.name"
-                        :sub-heading="formatShoppingListItems(shoppingList.items_count)"
+                        :sub-heading="formatItemsCount(shoppingList.items_count)"
                     ></Card>
                 </router-link>
             </CardGrid>
@@ -31,6 +31,7 @@ import PlusButton from '../../StyledComponents/Buttons/PlusButton';
 import Loading from '../../Loading';
 import CardGrid from '../../StyledComponents/CardGrid';
 import Card from '../../StyledComponents/Card';
+import WithFormatShoppingList from '../../Mixins/WithFormatShoppingList';
 
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 const ShoppingListRepository = RepositoryFactory.get('shoppingList');
@@ -54,9 +55,7 @@ export default {
         this.fetchShoppingLists();
     },
     methods: {
-        formatShoppingListItems (shoppingListItemsCount) {
-            return `${shoppingListItemsCount} items`
-        },
+        ...WithFormatShoppingList,
         async fetchShoppingLists () {
             const { data } = await ShoppingListRepository.get();
             this.isLoading = false;
