@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Shop;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Shop::deleted(function (Shop $shop) {
+            $shop->groceries()->delete();
+        });
+
     }
 }

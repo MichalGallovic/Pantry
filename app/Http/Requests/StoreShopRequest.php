@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Database\Query\Builder;
+use Illuminate\Validation\Rule;
+
 class StoreShopRequest extends ApiRequest
 {
     /**
@@ -12,7 +15,12 @@ class StoreShopRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:shops'
+            'name' => [
+                'required',
+                Rule::unique('shops', 'name')->where(function (Builder $query) {
+                    $query->whereNull('deleted_at');
+                })
+            ]
         ];
     }
 }

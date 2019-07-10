@@ -19,7 +19,7 @@ class CreateGroceriesTable extends Migration
             $table->string('expiration_days');
             $table->decimal('price');
             $table->unsignedBigInteger('shop_id')->nullable();
-            $table->foreign('shop_id')->references('id')->on('shops');
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->unsignedInteger('units');
             $table->unsignedBigInteger('unit_type_id')->nullable();
             $table->foreign('unit_type_id')->references('id')->on('unit_types');
