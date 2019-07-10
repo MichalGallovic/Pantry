@@ -118,13 +118,16 @@ export default {
                 // Maybe add some growl-like notifications ?
             }
         },
-        reorderItems () {
-            // @TODO update in one batch
-            Promise.all(
-                this.shoppingList.items.map(
-                    (item, index) => ShoppingListItemRepository.update(item.id, { order: index })
-                )
-            ).then(() => this.fetchShoppingList());
+        async reorderItems () {
+            const itemsOrder = this.shoppingList.items.map((item, index) => {
+                return {
+                    id: item.id,
+                    order: index
+                };
+            });
+
+            await ShoppingListItemRepository.updateOrder(itemsOrder);
+            this.fetchShoppingList();
         },
         async deleteShoppingList () {
             try {

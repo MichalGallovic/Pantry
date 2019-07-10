@@ -12,5 +12,10 @@ export default {
         const path = `${resource}/${id}`;
 
         return Repository.delete(path);
+    },
+    updateOrder (payload) {
+        const path = `${resource}/order`;
+
+        return Repository.put(path, payload);
     }
 }

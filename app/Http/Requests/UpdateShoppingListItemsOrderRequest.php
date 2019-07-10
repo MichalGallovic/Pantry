@@ -12,8 +12,8 @@ class UpdateShoppingListItemsOrderRequest extends ApiRequest
     public function rules()
     {
         return [
-            'items.*.id' => 'required|integer',
-            'items.*.order' => 'required|integer'
+            '*.id' => 'required|integer',
+            '*.order' => 'required|integer'
         ];
     }
 }

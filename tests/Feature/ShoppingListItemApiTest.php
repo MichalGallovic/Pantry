@@ -81,19 +81,19 @@ class ShoppingListItemApiTest extends ApiTestCase
         $shoppingList = factory(ShoppingList::class)->create();
         $shoppingListItems = factory(ShoppingListItem::class, 10)->create(['shopping_list_id' => $shoppingList->id]);
 
-        $orderUpdate = [
-            'items' => $shoppingListItems->map(function (ShoppingListItem $item, $index) {
+        $orderUpdate = $shoppingListItems
+            ->map(function (ShoppingListItem $item, $index) {
                 return [
                     'id' => $item->id,
                     'order' => $index
                 ];
-            })->all()
-        ];
+            })
+            ->all();
 
         $response = $this->put(route('api.shopping-list-items.order.update'), $orderUpdate);
         $response->assertSuccessful();
 
-        collect($orderUpdate['items'])
+        collect($orderUpdate)
             ->each(function ($item) {
                 $this->assertDatabaseHas('shopping_list_items', ['id' => $item['id'], 'order' => $item['order']]);
             });
