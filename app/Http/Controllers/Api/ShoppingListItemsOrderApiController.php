@@ -31,7 +31,7 @@ class ShoppingListItemsOrderApiController extends ApiController
         $attributes = $request->validated();
 
         try {
-            $this->shoppingListItem->updateItemsOrder($attributes);
+            $this->shoppingListItem->updateItemsOrder($attributes['items']);
 
             return $this->respondWithSuccess('Items\' order updated successfully');
         } catch (Throwable $exception) {

@@ -14,6 +14,16 @@ export default {
     create (payload) {
         return Repository.post(resource, payload);
     },
+    updateItems (id, items) {
+        const path = `${resource}/${id}/items`;
+
+        return Repository.put(path, {items: items});
+    },
+    updateName (id, name) {
+        const path = `${resource}/${id}`;
+
+        return Repository.put(path, {name: name});
+    },
     delete (id) {
         const path = `${resource}/${id}`;
 

@@ -25,6 +25,7 @@
 <script>
 import AutoComplete from './AutoComplete';
 import ShoppingListSuggestions from './ShoppingListSuggestions';
+import WithFormatShoppingListItem from '../Mixins/WithFormatShoppingListItem';
 import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
 
 const GroceryRepository = RepositoryFactory.get('grocery');
@@ -62,12 +63,13 @@ export default {
         },
         textItem () {
             return {
-                id: `text_item_${this.query}`,
+                id: this.makeTextItemId(this.query),
                 text: this.query
             }
         }
     },
     methods: {
+        ...WithFormatShoppingListItem,
         select (item) {
             this.query = null;
             this.setSuggestions(this.initialSuggestions);
@@ -106,7 +108,7 @@ export default {
         mapGroceries (groceries) {
             return groceries.map((grocery) => {
                 return {
-                    id: `grocery_${grocery.id}`,
+                    id: this.makeGroceryId(grocery.id),
                     text: grocery.name,
                     grocery_id: grocery.id
                 }

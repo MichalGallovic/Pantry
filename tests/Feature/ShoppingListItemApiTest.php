@@ -16,7 +16,7 @@ class ShoppingListItemApiTest extends ApiTestCase
     {
         $shoppingList = factory(ShoppingList::class)->state('with-items')->create();
 
-        $response = $this->get(route('api.shopping-list-items.index'));
+        $response = $this->get(route('api.shopping-lists-items.index'));
 
         $this->assertResponse($response, $shoppingList->items->makeHidden(['grocery_id', 'shopping_list_id'])->toArray());
     }
@@ -26,7 +26,7 @@ class ShoppingListItemApiTest extends ApiTestCase
         factory(ShoppingList::class)->state('with-items')->create();
         $shoppingListItems = ShoppingListItem::with(['grocery', 'shoppingList'])->get();
 
-        $response = $this->json('GET', route('api.shopping-list-items.index'), ['embed' => 'grocery,shopping-list']);
+        $response = $this->json('GET', route('api.shopping-lists-items.index'), ['embed' => 'grocery,shopping-list']);
 
         $this->assertResponse($response, $shoppingListItems->toArray());
     }
@@ -36,7 +36,7 @@ class ShoppingListItemApiTest extends ApiTestCase
         $shoppingList = factory(ShoppingList::class)->create();
         $newShoppingListItem = factory(ShoppingListItem::class)->make(['shopping_list_id' => $shoppingList->id]);
 
-        $response = $this->post(route('api.shopping-list-items.store'), $newShoppingListItem->toArray());
+        $response = $this->post(route('api.shopping-lists-items.store'), $newShoppingListItem->toArray());
 
         $this->assertResponse($response, $newShoppingListItem->toArray(), JsonResponse::HTTP_CREATED);
     }
@@ -47,7 +47,7 @@ class ShoppingListItemApiTest extends ApiTestCase
         $newShoppingListItem = factory(ShoppingListItem::class)
             ->make(['shopping_list_id' => $shoppingList->id, 'name' => null]);
 
-        $response = $this->post(route('api.shopping-list-items.store'), $newShoppingListItem->toArray());
+        $response = $this->post(route('api.shopping-lists-items.store'), $newShoppingListItem->toArray());
 
         $this->assertError($response);
     }
@@ -59,7 +59,7 @@ class ShoppingListItemApiTest extends ApiTestCase
             ->state('with-grocery')
             ->make(['shopping_list_id' => $shoppingList->id]);
 
-        $response = $this->post(route('api.shopping-list-items.store'), $newShoppingListItem->toArray());
+        $response = $this->post(route('api.shopping-lists-items.store'), $newShoppingListItem->toArray());
 
         $this->assertResponse($response, $newShoppingListItem->toArray(), JsonResponse::HTTP_CREATED);
     }
@@ -71,7 +71,7 @@ class ShoppingListItemApiTest extends ApiTestCase
 
         $shoppingListItem['completed'] = !$shoppingListItem['completed'];
 
-        $response = $this->put(route('api.shopping-list-items.update', $shoppingListItem->id), ['completed' => $shoppingListItem->completed]);
+        $response = $this->put(route('api.shopping-lists-items.update', $shoppingListItem->id), ['completed' => $shoppingListItem->completed]);
 
         $this->assertResponse($response, $shoppingListItem->toArray(), JsonResponse::HTTP_OK);
     }
@@ -90,7 +90,7 @@ class ShoppingListItemApiTest extends ApiTestCase
             })
             ->all();
 
-        $response = $this->put(route('api.shopping-list-items.order.update'), $orderUpdate);
+        $response = $this->put(route('api.shopping-lists-items.order.update'), ['items' => $orderUpdate]);
         $response->assertSuccessful();
 
         collect($orderUpdate)
@@ -103,7 +103,7 @@ class ShoppingListItemApiTest extends ApiTestCase
     {
         $updateData = ['completed' => false];
 
-        $response = $this->put(route('api.shopping-list-items.update', 1), $updateData);
+        $response = $this->put(route('api.shopping-lists-items.update', 1), $updateData);
 
         $this->assertError($response, JsonResponse::HTTP_NOT_FOUND);
     }
@@ -113,7 +113,7 @@ class ShoppingListItemApiTest extends ApiTestCase
         $shoppingList = factory(ShoppingList::class)->create();
         $shoppingListItem = factory(ShoppingListItem::class)->create(['shopping_list_id' => $shoppingList->id]);
 
-        $response = $this->delete(route('api.shopping-list-items.destroy', $shoppingListItem->id));
+        $response = $this->delete(route('api.shopping-lists-items.destroy', $shoppingListItem->id));
 
         $this->assertSuccess($response, JsonResponse::HTTP_OK);
         $this->assertDatabaseMissing('shopping_list_items', ['shopping_list_id' => $shoppingListItem->id]);
@@ -121,7 +121,7 @@ class ShoppingListItemApiTest extends ApiTestCase
 
     public function test_cannot_delete_unknown_shopping_list()
     {
-        $response = $this->delete(route('api.shopping-list-items.destroy', 1));
+        $response = $this->delete(route('api.shopping-lists-items.destroy', 1));
 
         $this->assertError($response, JsonResponse::HTTP_NOT_FOUND);
     }

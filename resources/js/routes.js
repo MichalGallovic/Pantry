@@ -12,6 +12,7 @@ const ShowShop = () => import("./components/Routes/Shops/ShowShop");
 const EditShop = () => import('./components/Routes/Shops/EditShop');
 const ShowGrocery = () => import("./components/Routes/Groceries/ShowGrocery");
 const EditGrocery = () => import('./components/Routes/Groceries/EditGrocery');
+const EditShoppingList = () => import ('./components/Routes/ShoppingList/EditShoppingList');
 
 export default {
     mode: 'history',
@@ -46,6 +47,12 @@ export default {
             path: '/shopping-lists/:id',
             component: ShowShoppingList,
             name: 'shopping-lists.show',
+            props: true
+        },
+        {
+            path: '/shopping-lists/:id/edit',
+            component: EditShoppingList,
+            name: 'shopping-lists.edit',
             props: true
         },
         {

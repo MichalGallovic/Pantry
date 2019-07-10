@@ -21,7 +21,7 @@ export default {
     filterEmptyParameters (parameters) {
         for (let key in parameters) {
             const isEmpty = parameters.hasOwnProperty(key) &&
-                (parameters[key] === null || parameters[key] === undefined);
+                (parameters[key] === null || parameters[key] === undefined || parameters[key].length === 0);
 
             if (isEmpty) {
                 delete parameters[key];

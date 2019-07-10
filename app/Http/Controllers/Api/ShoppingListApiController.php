@@ -73,6 +73,7 @@ class ShoppingListApiController extends ApiController
 
     /**
      * @param UpdateShoppingListRequest $request
+     * @param int $id
      *
      * @return JsonResponse
      */

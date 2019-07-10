@@ -1,13 +1,13 @@
 <template>
-    <section>
-        <Heading>Add shopping list</Heading>
+    <section v-if="shoppingList">
+        <Heading>Edit shopping list</Heading>
         <div class="mt-4 flex flex-col sm:flex-row">
             <div class="flex flex-col sm:w-1/2">
                 <div class="w-full">
                     <Label class="block">Shopping list name</Label>
                     <Error v-for="(error, i) in errorMessages.name" :error="error" :key="i"></Error>
                     <TextInput
-                            v-model="shoppingListName"
+                            v-model="shoppingList.name"
                             :errors="errorMessages.name"
                             class="mt-2 w-full block"
                             placeholder="Strawberries">
@@ -22,54 +22,71 @@
                 <div class="w-full lg:w-2/3">
                     <Label class="block">Shopping list items</Label>
                     <Error v-for="(error, i) in errorMessages.items" :error="error" :key="i"></Error>
-                    <ShoppingListItems v-model="items" class="mt-2"></ShoppingListItems>
+                    <ShoppingListItems v-model="shoppingList.items" class="mt-2"></ShoppingListItems>
                 </div>
             </div>
         </div>
     </section>
+    <section v-else>
+        <Loading>Loading shopping list ...</Loading>
+    </section>
 </template>
 
 <script>
+import Loading from '../../Loading';
 import Heading from '../../StyledComponents/Heading';
-import SearchBar from '../../SearchBar';
-import ListItem from '../../StyledComponents/ListItem/InteractiveListItem';
-import Button from '../../StyledComponents/Buttons/Button';
 import Label from '../../StyledComponents/Form/Label';
 import TextInput from '../../StyledComponents/Form/TextInput';
-import ShoppingListItems from './ShoppingListItems';
-import WithFormHandling from '../../Mixins/WithFormHandling';
+import Button from '../../StyledComponents/Buttons/Button';
 import Error from '../../StyledComponents/Form/WithErrors/Error';
+import ShoppingListItems from './ShoppingListItems';
+import WithFormatShoppingListItem from '../../Mixins/WithFormatShoppingListItem';
+import WithFormHandling from '../../Mixins/WithFormHandling';
 import WithShoppingLists from '../../Mixins/WithShoppingLists';
 
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 const ShoppingListRepository = RepositoryFactory.get('shoppingList');
 
 export default {
+    props: ['id'],
     mixins: [WithFormHandling, WithShoppingLists],
     components: {
+        Loading,
         Heading,
-        SearchBar,
-        Button,
-        ListItem,
         Label,
         TextInput,
+        Button,
         Error,
         ShoppingListItems
     },
     data () {
         return {
-            shoppingListName: null,
-            items: []
+            shoppingList: null
         }
     },
+    created () {
+        this.fetchShoppingList();
+    },
     methods: {
+        ...WithFormatShoppingListItem,
+        async fetchShoppingList () {
+            let { data } = await ShoppingListRepository.find(this.id, ['items-with-groceries'], []);
+            data.items = data.items.sort((a, b) => a.order - b.order);
+
+            data.items = data.items.map(item => {
+                return {
+                    id: this.hasGrocery(item) ? this.makeGroceryId(item.grocery_id) : this.makeTextItemId(item.name),
+                    text: this.formatItemName(item)
+                }
+            });
+            this.shoppingList = data;
+        },
         async create () {
             try {
-                await ShoppingListRepository.create({
-                    name: this.shoppingListName,
-                    items: this.mapItems(this.items)
-                });
-                this.$router.push({ name: 'shopping-lists'});
+
+                await ShoppingListRepository.updateName(this.id, this.shoppingList.name);
+                await ShoppingListRepository.updateItems(this.id, this.mapItems(this.shoppingList.items));
+                this.$router.push({ name: 'shopping-lists.show', params: { id: this.shoppingList.id }});
             } catch (error) {
                 this.handleErrors(error);
             }

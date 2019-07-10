@@ -8,10 +8,11 @@ use App\ShoppingListItem;
 use Illuminate\Http\JsonResponse;
 use Tests\ApiTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Traits\WithShoppingList;
 
 class ShoppingListApiTest extends ApiTestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithShoppingList;
 
     public function test_shopping_list_pagination()
     {
@@ -114,29 +115,5 @@ class ShoppingListApiTest extends ApiTestCase
         $response = $this->delete(route('api.shopping-lists.destroy', 1));
 
         $this->assertError($response, JsonResponse::HTTP_NOT_FOUND);
-    }
-
-    /**
-     * @return array
-     */
-    private function makeShoppingListWithItems()
-    {
-        /** @var array */
-        $newShoppingList = factory(ShoppingList::class)->make();
-        $noGroceryItems  = factory(ShoppingListItem::class, 5)->make();
-        $groceryItems    = factory(ShoppingListItem::class, 5)
-            ->state('with-grocery')
-            ->make()
-            ->map(function (ShoppingListItem $item) {
-                return [
-                    'order'      => $item->order,
-                    'completed'  => $item->completed,
-                    'grocery_id' => $item->grocery_id
-                ];
-            });
-
-        $newShoppingList->items = $groceryItems->concat($noGroceryItems)->toArray();
-
-        return $newShoppingList->toArray();
     }
 }

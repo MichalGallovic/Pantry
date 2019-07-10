@@ -5,11 +5,16 @@ namespace App\Repositories;
 use App\Contracts\CrudRepository;
 use App\ShoppingList;
 use App\ShoppingListItem;
+use Illuminate\Database\ConnectionInterface;
 
 class ShoppingListRepository extends EloquentRepository implements CrudRepository
 {
     /** @var ShoppingList */
     private $shoppingList;
+
+    /** @var ConnectionInterface */
+    private $db;
+
 
     /** @var array */
     protected $allowedRelations = [
@@ -23,11 +28,13 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     ];
 
     /**
-     * @param ShoppingList $shoppingList
+     * @param ShoppingList        $shoppingList
+     * @param ConnectionInterface $db
      */
-    public function __construct(ShoppingList $shoppingList)
+    public function __construct(ShoppingList $shoppingList, ConnectionInterface $db)
     {
         $this->shoppingList = $shoppingList;
+        $this->db           = $db;
     }
 
     /**
@@ -54,10 +61,23 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     {
         $shoppingList = $this->shoppingList->create(['name' => $attributes['name']]);
 
+        $shoppingList = $this->createItems($shoppingList, $attributes['items']);
+
+        return $shoppingList;
+    }
+
+    /**
+     * @param ShoppingList $shoppingList
+     * @param array        $items
+     *
+     * @return ShoppingList
+     */
+    private function createItems(ShoppingList $shoppingList, array $items)
+    {
         $items = $shoppingList
             ->items()
             ->saveMany(
-                collect($attributes['items'])->map(function ($item) {
+                collect($items)->map(function ($item) {
                     return new ShoppingListItem($item);
                 })
             );
@@ -85,7 +105,9 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
     }
 
     /**
-     * @inheritDoc
+     * @param string $id
+     *
+     * @return ShoppingList
      */
     public function findOrFail($id)
     {
@@ -111,6 +133,23 @@ class ShoppingListRepository extends EloquentRepository implements CrudRepositor
         $shoppingList->update($attributes);
 
         return $shoppingList;
+    }
+
+    /**
+     * @param int $id
+     * @param array $items
+     *
+     * @throws \Throwable
+     */
+    public function replaceItems($id, array $items)
+    {
+        $shoppingList = $this->findOrFail($id);
+
+        $shoppingList->items()->delete();
+
+        $this->db->transaction(function() use ($shoppingList, $items) {
+            $this->createItems($shoppingList, $items);
+        });
     }
 
     /**

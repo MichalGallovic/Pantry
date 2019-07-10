@@ -8,7 +8,7 @@
                     :sub-heading="formatItemsCount(shoppingList.items_count)"
                 ></Card>
                 <div class="mt-4">
-                    <!--<router-link :to="{ name: 'shops.edit', params: { id: shop.id } }"><Button class="btn-grey">Edit</Button></router-link>-->
+                    <router-link :to="{ name: 'shopping-lists.edit', params: { id: shoppingList.id } }"><Button class="btn-grey">Edit</Button></router-link>
                     <Button class="text-gray-600" @click.native="askQuestion = true">Delete</Button>
                 </div>
             </div>
@@ -59,13 +59,15 @@ import WithFormatShoppingList from '../../Mixins/WithFormatShoppingList';
 import WithFormatShoppingListItem from '../../Mixins/WithFormatShoppingListItem';
 import DeleteDialog from '../../StyledComponents/Modals/DeleteDialog';
 import Button from '../../StyledComponents/Buttons/Button';
-import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
+import WithShoppingLists from '../../Mixins/WithShoppingLists';
 
+import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 const ShoppingListRepository = RepositoryFactory.get('shoppingList');
 const ShoppingListItemRepository = RepositoryFactory.get('shoppingListItem');
 
 export default {
     props: ['id'],
+    mixins: [WithShoppingLists],
     components: {
         InteractiveListItem,
         Loading,
@@ -78,7 +80,6 @@ export default {
     },
     data () {
         return {
-            shoppingList: null,
             askQuestion: false
         }
     },
@@ -90,11 +91,6 @@ export default {
         ...WithFormatShoppingListItem,
         getItemByIndex (itemIndex) {
             return this.shoppingList.items[itemIndex];
-        },
-        async fetchShoppingList () {
-            let { data } = await ShoppingListRepository.find(this.id);
-            data.items = data.items.sort((a, b) => a.order - b.order);
-            this.shoppingList = data;
         },
         async toggle (itemIndex) {
             const item = this.getItemByIndex(itemIndex);
@@ -126,7 +122,7 @@ export default {
                 };
             });
 
-            await ShoppingListItemRepository.updateOrder(itemsOrder);
+            await ShoppingListItemRepository.updateOrder({items: itemsOrder});
             this.fetchShoppingList();
         },
         async deleteShoppingList () {

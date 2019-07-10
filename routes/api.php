@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ShoppingListItemApiController;
 use App\Http\Controllers\Api\ShoppingListItemsOrderApiController;
 use App\Http\Controllers\Api\UnitTypeApiController;
 use App\Http\Controllers\Api\ShoppingListApiController;
+use App\Http\Controllers\Api\ShoppingListItemsApiController;
 use Illuminate\Routing\Router;
 
 /*
@@ -50,16 +51,19 @@ Route::name('api.')->group(function () {
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
 
+    Route::put('shopping-lists/{id}/items', [ShoppingListItemsApiController::class, 'update'])
+        ->name('shopping-list-items.update');
+
     Route::put('shopping-lists/items/order', [ShoppingListItemsOrderApiController::class, 'update'])
-        ->name('shopping-list-items.order.update');
+        ->name('shopping-lists-items.order.update');
 
     Route::resource('shopping-lists/items', ShoppingListItemApiController::class, [
         'only' => ['index', 'store', 'update', 'destroy'],
         'names' => [
-            'index' => 'shopping-list-items.index',
-            'store' => 'shopping-list-items.store',
-            'update' => 'shopping-list-items.update',
-            'destroy' => 'shopping-list-items.destroy'
+            'index' => 'shopping-lists-items.index',
+            'store' => 'shopping-lists-items.store',
+            'update' => 'shopping-lists-items.update',
+            'destroy' => 'shopping-lists-items.destroy'
         ]
     ]);
 

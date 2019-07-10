@@ -1,12 +1,19 @@
 import Query from '../../Utils/Query';
 
 test('filters out parameters with empty values', () => {
-    const parameters = {
+    let parameters = {
         q: null,
         page: 2
     };
 
     expect(Query.filterEmptyParameters(parameters)).toEqual({page: 2});
+
+    parameters = {
+        q: [],
+        page: 4
+    };
+
+    expect(Query.filterEmptyParameters(parameters)).toEqual({page: 4});
 });
 
 test('serialize object parameters to url query parameters', () => {

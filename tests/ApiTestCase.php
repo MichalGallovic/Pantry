@@ -39,7 +39,7 @@ class ApiTestCase extends TestCase
      * @param TestResponse $response
      * @param int          $statusCode
      */
-    protected function assertSuccess(TestResponse $response, $statusCode = JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+    protected function assertSuccess(TestResponse $response, $statusCode = JsonResponse::HTTP_OK)
     {
         $response
             ->assertStatus($statusCode)

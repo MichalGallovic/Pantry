@@ -29,6 +29,7 @@ class ShoppingListItemApiController extends ApiController
      */
     public function index(Request $request)
     {
+        // @TODO this could be deleted
         $relations = $this->getEmbeddedRelations($request);
 
         $shoppingListItems = $this->shoppingListItem->withRelations($relations)->all();
@@ -43,6 +44,7 @@ class ShoppingListItemApiController extends ApiController
      */
     public function store(StoreShoppingListItemRequest $request)
     {
+        // @TODO this could be deleted
         $attributes = $request->validated();
 
         $shoppingListItem = $this->shoppingListItem->create($attributes);
