@@ -76,6 +76,29 @@ class ShoppingListItemApiTest extends ApiTestCase
         $this->assertResponse($response, $shoppingListItem->toArray(), JsonResponse::HTTP_OK);
     }
 
+    public function test_update_items_order_in_batch()
+    {
+        $shoppingList = factory(ShoppingList::class)->create();
+        $shoppingListItems = factory(ShoppingListItem::class, 10)->create(['shopping_list_id' => $shoppingList->id]);
+
+        $orderUpdate = [
+            'items' => $shoppingListItems->map(function (ShoppingListItem $item, $index) {
+                return [
+                    'id' => $item->id,
+                    'order' => $index
+                ];
+            })->all()
+        ];
+
+        $response = $this->put(route('api.shopping-list-items.order.update'), $orderUpdate);
+        $response->assertSuccessful();
+
+        collect($orderUpdate['items'])
+            ->each(function ($item) {
+                $this->assertDatabaseHas('shopping_list_items', ['id' => $item['id'], 'order' => $item['order']]);
+            });
+    }
+
     public function test_returns_error_on_updating_unknown_shopping_list_item()
     {
         $updateData = ['completed' => false];

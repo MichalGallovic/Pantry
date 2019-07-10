@@ -4,11 +4,15 @@ namespace App\Repositories;
 
 use App\Contracts\CrudRepository;
 use App\ShoppingListItem;
+use Illuminate\Database\ConnectionInterface;
 
 class ShoppingListItemRepository extends EloquentRepository implements CrudRepository
 {
     /** @var ShoppingListItem */
     private $shoppingListItem;
+
+    /** @var ConnectionInterface */
+    private $db;
 
     /** @var array */
     protected $allowedRelations = [
@@ -17,11 +21,13 @@ class ShoppingListItemRepository extends EloquentRepository implements CrudRepos
     ];
 
     /**
-     * @param ShoppingListItem $shoppingListItem
+     * @param ShoppingListItem    $shoppingListItem
+     * @param ConnectionInterface $db
      */
-    public function __construct(ShoppingListItem $shoppingListItem)
+    public function __construct(ShoppingListItem $shoppingListItem, ConnectionInterface $db)
     {
         $this->shoppingListItem = $shoppingListItem;
+        $this->db               = $db;
     }
 
     /**
@@ -89,6 +95,20 @@ class ShoppingListItemRepository extends EloquentRepository implements CrudRepos
         $shoppingListItem->update($attributes);
 
         return $shoppingListItem;
+    }
+
+    /**
+     * @param array $itemsOrder
+     *
+     * @throws \Throwable
+     */
+    public function updateItemsOrder(array $itemsOrder)
+    {
+        $this->db->transaction(function () use ($itemsOrder) {
+            collect($itemsOrder)->each(function ($item) {
+                $this->find($item['id'])->update(['order' => $item['order']]);
+            });
+        });
     }
 
     /**

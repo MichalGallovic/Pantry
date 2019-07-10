@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\Api\GroceryApiController;
 use App\Http\Controllers\Api\RecipeApiController;
-use App\Http\Controllers\Api\SearchGroceriesApiController;
 use App\Http\Controllers\Api\SettingsApiController;
 use App\Http\Controllers\Api\ShopApiController;
 use App\Http\Controllers\Api\ShopGroceriesApiController;
 use App\Http\Controllers\Api\ShoppingListItemApiController;
+use App\Http\Controllers\Api\ShoppingListItemsOrderApiController;
 use App\Http\Controllers\Api\UnitTypeApiController;
 use App\Http\Controllers\Api\ShoppingListApiController;
 use Illuminate\Routing\Router;
@@ -49,6 +49,9 @@ Route::name('api.')->group(function () {
     Route::resource('recipes', RecipeApiController::class, [
         'only' => ['index', 'show', 'store', 'update', 'destroy']
     ]);
+
+    Route::put('shopping-lists/items/order', [ShoppingListItemsOrderApiController::class, 'update'])
+        ->name('shopping-list-items.order.update');
 
     Route::resource('shopping-lists/items', ShoppingListItemApiController::class, [
         'only' => ['index', 'store', 'update', 'destroy'],

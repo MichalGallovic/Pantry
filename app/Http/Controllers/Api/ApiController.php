@@ -71,4 +71,22 @@ class ApiController
             $statusCode
         );
     }
+
+    /**
+     * @param string $message
+     * @param int $statusCode
+     *
+     * @return JsonResponse
+     */
+    protected function respondWithError($message, $statusCode)
+    {
+        return new JsonResponse(
+            [
+                'error' => [
+                    'message' => $message
+                ]
+            ],
+            $statusCode
+        );
+    }
 }
