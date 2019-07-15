@@ -11,29 +11,36 @@
             </SearchBar>
             <AddButton @click.native="select(textItem)" class="flex-none ml-2"></AddButton>
         </div>
-        <ShoppingListSuggestions
+        <GroupedSuggestions
             v-show="suggestionsVisible"
             @click:outside="hide"
             @select="select"
             :suggestions="suggestionGroups"
             :loading="isLoading"
             :has-results="hasResults"
-        ></ShoppingListSuggestions>
+        ></GroupedSuggestions>
     </div>
 </template>
 
 <script>
 import AutoComplete from './AutoComplete';
-import ShoppingListSuggestions from './ShoppingListSuggestions';
+import GroupedSuggestions from './GroupedSuggestions';
 import WithFormatShoppingListItem from '../Mixins/WithFormatShoppingListItem';
-import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
+import groupBy from 'lodash/groupBy';
+import map from 'lodash/map';
+import UnitType from '../../Utils/UnitType';
+import SearchBar from '../SearchBar';
+import AddButton from '../StyledComponents/Buttons/AddButton';
 
+import { RepositoryFactory } from "../../Repositories/RepositoryFactory";
 const GroceryRepository = RepositoryFactory.get('grocery');
 
 export default {
     extends: AutoComplete,
     components: {
-        ShoppingListSuggestions
+        GroupedSuggestions,
+        SearchBar,
+        AddButton
     },
     data () {
         return {
@@ -53,10 +60,10 @@ export default {
             }
 
             if (this.suggestions.length > 0) {
-                suggestions.push({
-                    name: "Groceries",
-                    suggestions: this.suggestions
-                });
+
+                suggestions.push(
+                    ...this.groupSuggestionsByShop(this.suggestions)
+                );
             }
 
             return suggestions;
@@ -110,8 +117,18 @@ export default {
                 return {
                     id: this.makeGroceryId(grocery.id),
                     text: grocery.name,
+                    small_text: `${grocery.units} ${UnitType.getNameById(grocery.unit_type_id)}`,
+                    shop_name: grocery.shop.name,
                     grocery_id: grocery.id
-                }
+                };
+            });
+        },
+        groupSuggestionsByShop (suggestions) {
+            return map(groupBy(suggestions, 'shop_name'), (shopSuggestions, shopName) => {
+                return {
+                    name: `Groceries of ${shopName}`,
+                    suggestions: shopSuggestions
+                };
             });
         }
     }

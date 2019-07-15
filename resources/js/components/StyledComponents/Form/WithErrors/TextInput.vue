@@ -19,7 +19,9 @@ export default {
         placeholder: {
             default: "Placeholder"
         },
-        value: String,
+        value: {
+            default: null
+        },
         errors: Array
     }
 };

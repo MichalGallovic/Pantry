@@ -1,21 +1,21 @@
 <template>
     <div>
-        <ShoppingListAutoComplete @select="add"></ShoppingListAutoComplete>
+        <ShoppingListGroceriesAutoComplete @select="add"></ShoppingListGroceriesAutoComplete>
         <Draggable @input="orderChanged" :value="items">
             <InteractiveListItem
-                    v-for="item in items"
-                    :key="item.id"
-                    :value="item"
-                    :text="item.text"
-                    @remove="remove"
-                    class="w-full mt-2">
+                v-for="item in items"
+                :key="item.id"
+                :value="item"
+                :text="item.text"
+                @remove="remove"
+                class="mt-2">
             </InteractiveListItem>
         </Draggable>
     </div>
 </template>
 
 <script>
-import ShoppingListAutoComplete from '../../AutoComplete/ShoppingListAutoComplete';
+import ShoppingListGroceriesAutoComplete from '../../AutoComplete/ShoppingListGroceriesAutoComplete';
 import Draggable from 'vuedraggable';
 import InteractiveListItem from '../../StyledComponents/ListItem/InteractiveListItem';
 
@@ -28,12 +28,12 @@ export default {
     },
     props: {
         items: {
-            default: [],
+            default: () => [],
             type: Array
         }
     },
     components: {
-        ShoppingListAutoComplete,
+        ShoppingListGroceriesAutoComplete,
         Draggable,
         InteractiveListItem
     },
@@ -42,7 +42,6 @@ export default {
             if (this.items.some((item) => item.id === selectedItem.id)) {
                 return;
             }
-
 
             this.$emit(MODEL_EVENT, [selectedItem, ...this.items]);
         },

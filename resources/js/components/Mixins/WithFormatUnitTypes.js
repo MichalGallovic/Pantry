@@ -8,6 +8,9 @@ export default {
             }
 
             return null;
+        },
+        unitType (unitTypeId) {
+            return UnitType.getNameById(unitTypeId);
         }
     }
 }

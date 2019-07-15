@@ -34,4 +34,20 @@
     @apply bg-gray-800;
 }
 
+.suggestion-item {
+    @apply px-2 py-1 rounded rounded-lg bg-gray-200 text-gray-800 cursor-pointer;
+
+    span {
+        @apply text-xs font-bold text-gray-600;
+    }
+}
+
+.suggestion-item:hover {
+    @apply bg-gray-800 text-gray-100;
+
+    span {
+        @apply text-gray-300;
+    }
+}
+
 @import "~tailwindcss/utilities.css";
