@@ -17,6 +17,7 @@ class CreateRecipesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('servings');
+            $table->text('description')->nullable();
             $table->unsignedInteger('preparation_minutes');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

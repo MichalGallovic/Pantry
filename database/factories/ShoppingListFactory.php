@@ -52,7 +52,7 @@ $factory->afterCreatingState(ShoppingList::class, 'with-mixed-items', function (
                 ->create(['shopping_list_id' => $shoppingList->id]);
         });
 
-    collect(range(0, random_int(5, 10)))
+    collect(range(0,random_int(5, 10)))
         ->map(function () use ($shoppingList) {
             return factory(ShoppingListItem::class)
                 ->create(['shopping_list_id' => $shoppingList->id]);

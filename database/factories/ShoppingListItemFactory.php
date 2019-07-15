@@ -3,7 +3,6 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Grocery;
-use App\ShoppingList;
 use App\ShoppingListItem;
 use Faker\Generator as Faker;
 

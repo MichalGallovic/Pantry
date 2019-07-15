@@ -25,7 +25,7 @@
                 </router-link>
             </SquareGrid>
         </div>
-        <NoResults v-if="groceriesByShops && groceriesByShops.length === 0">No groceries found for term "{{ query }}"</NoResults>
+        <NoResults v-if="searchHasNoResults">No groceries found for term "{{ query }}"</NoResults>
     </section>
 </template>
 
@@ -61,6 +61,11 @@ export default {
             groceriesByShops: null,
             query: null
         };
+    },
+    computed: {
+        searchHasNoResults () {
+            return this.query && this.groceriesByShops && this.groceriesByShops.length === 0;
+        }
     },
     created () {
         this.fetchGroceries();
