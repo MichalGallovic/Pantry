@@ -20,8 +20,7 @@ class CreateRecipeGroceryTable extends Migration
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->unsignedBigInteger('grocery_id')->nullable();
             $table->foreign('grocery_id')->references('id')->on('groceries');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

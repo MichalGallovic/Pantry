@@ -24,6 +24,6 @@ class Recipe extends Model
      */
     public function groceries()
     {
-        return $this->belongsToMany(\App\Grocery::class);
+        return $this->belongsToMany(\App\Grocery::class)->withTimestamps();
     }
 }
