@@ -4,22 +4,25 @@
             <Heading>Add recipe</Heading>
         </div>
         <div class="flex flex-wrap">
-            <form class="mt-4 w-full sm:w-1/2">
+            <form class="mt-4 w-full sm:w-1/2" @submit.prevent="create">
                 <div>
                     <Label class="block">Recipe name</Label>
+                    <Error v-for="(error, i) in errorMessages.name" :error="error" :key="i"></Error>
                     <TextInput v-model="name" class="mt-2 w-full block" placeholder="Waldorf salad"></TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Servings</Label>
-                    <TextInput class="mt-2 w-1/2 block" placeholder="2"></TextInput>
+                    <Error v-for="(error, i) in errorMessages.servings" :error="error" :key="i"></Error>
+                    <TextInput v-model="servings" class="mt-2 w-1/2 block" placeholder="2"></TextInput>
                 </div>
                 <div class="mt-2">
                     <Label class="block">Preparation time (in minutes)</Label>
-                    <TextInput class="mt-2 w-1/2 block" placeholder="20"></TextInput>
+                    <Error v-for="(error, i) in errorMessages.preparation_minutes" :error="error" :key="i"></Error>
+                    <TextInput v-model="preparation_minutes" class="mt-2 w-1/2 block" placeholder="20"></TextInput>
                 </div>
                 <div class="mt-2">
                     <TextLabel>Description</TextLabel>
-                    <TextArea class="block w-full h-32 mt-2"></TextArea>
+                    <TextArea v-model="description" class="block w-full h-32 mt-2"></TextArea>
                 </div>
                 <div class="mt-4 text-right">
                     <Button class="btn-grey" type="submit">Save</Button>
@@ -35,7 +38,8 @@
                     ></Card>
                 </div>
                 <div class="ml-8 mt-4">
-                    <TextLabel>Groceries</TextLabel>
+                    <TextLabel class="block">Groceries</TextLabel>
+                    <Error v-for="(error, i) in errorMessages.groceries" :error="error" :key="i"></Error>
                     <RecipeGroceryItems v-model="groceries"></RecipeGroceryItems>
                 </div>
             </div>
@@ -55,9 +59,14 @@ import Card from '../../StyledComponents/Card';
 import TextArea from '../../StyledComponents/Form/TextArea';
 import RecipeGroceryItems from './RecipeGroceryItems';
 import WithFormatGroceries from '../../Mixins/WithFormatGroceries';
+import WithFormHandling from '../../Mixins/WithFormHandling'
+import Error from '../../StyledComponents/Form/WithErrors/Error';
+
+import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
+const RecipeRepository = RepositoryFactory.get('recipe');
 
 export default {
-    mixins: [WithFormatGroceries],
+    mixins: [WithFormHandling, WithFormatGroceries],
     components: {
         Heading,
         Label,
@@ -68,7 +77,8 @@ export default {
         Button,
         Card,
         TextArea,
-        RecipeGroceryItems
+        RecipeGroceryItems,
+        Error
     },
     computed: {
         price () {
@@ -83,9 +93,33 @@ export default {
         return {
             name: null,
             servings: null,
-            preparation_time: null,
+            preparation_minutes: null,
             description: null,
             groceries: []
+        }
+    },
+    methods: {
+        async create() {
+            try {
+                await RecipeRepository.create({
+                    name: this.name,
+                    servings: this.servings,
+                    preparation_minutes: this.preparation_minutes,
+                    description: this.description,
+                    groceries: this.mapGroceriesForRecipe(this.groceries)
+                });
+                this.$router.push({ name: 'recipes'});
+            } catch (error) {
+                this.handleErrors(error);
+            }
+        },
+        mapGroceriesForRecipe (groceries) {
+            return groceries.map(grocery => {
+                return {
+                    grocery_id: grocery.grocery_id,
+                    units: grocery.recipe_units
+                };
+            });
         }
     }
 };

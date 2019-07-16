@@ -86,17 +86,17 @@ import Error from '../../StyledComponents/Form/WithErrors/Error';
 import SquareItem from '../../StyledComponents/SquareItem';
 import TextLabel from '../../StyledComponents/Form/TextLabel';
 import Button from '../../StyledComponents/Buttons/Button';
-import FormHandling from '../../Mixins/WithFormHandling';
-import FormatGroceries from '../../Mixins/WithFormatGroceries';
-import FormatUnitTypes from '../../Mixins/WithFormatUnitTypes';
-import Groceries from '../../Mixins/WithGroceries';
+import WithFormHandling from '../../Mixins/WithFormHandling';
+import WithFormatGroceries from '../../Mixins/WithFormatGroceries';
+import WithFormatUnitTypes from '../../Mixins/WithFormatUnitTypes';
+import WithGroceries from '../../Mixins/WithGroceries';
 
 import { RepositoryFactory } from "../../../Repositories/RepositoryFactory";
 
 const GroceryRepository = RepositoryFactory.get('grocery');
 
 export default {
-    mixins: [FormHandling, FormatGroceries, FormatUnitTypes, Groceries],
+    mixins: [WithFormHandling, WithFormatGroceries, WithFormatUnitTypes, WithGroceries],
     components: {
         Heading,
         Label,
