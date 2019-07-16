@@ -1,17 +1,17 @@
 <template>
     <div v-if="lastPage > 1" class="flex items-center justify-between">
-        <Button @click.native="previousPage">Previous</Button>
+        <Button @click.native="previousPage"><i class="fa fa-chevron-left"></i></Button>
         <div>
             <span
                 :class="pageActive(page)"
-                class="inline-flex flex-col justify-around cursor-pointer inline-block w-8 h-8 text-center mx-2"
-                @click="$emit('change', page)"
+                class="inline-flex justify-around cursor-pointer inline-block w-6 h-6 text-center mx-2"
+                @click="selectPage(page)"
                 v-for="page in pages"
             >
                 <span>{{ page }}</span>
             </span>
         </div>
-        <Button @click.native="nextPage">Next</Button>
+        <Button @click.native="nextPage"><i class="fa fa-chevron-right"></i></Button>
     </div>
 </template>
 
@@ -22,10 +22,20 @@ export default {
     props: ['lastPage', 'currentPage'],
     computed: {
         pages () {
-            const totalPages = this.lastPage;
+            const totalPages = parseInt(this.lastPage);
 
-            if (totalPages > 5) {
-                return [1, 2, '...', this.last - 1, this.last]
+            if (totalPages > 7) {
+                if (this.currentPage <= 4) {
+                    return [1, 2, 3, 4, 5, '...', this.lastPage];
+                }
+
+                if (this.currentPage > 4 && this.currentPage <= (totalPages - 4)) {
+                    return [1, '...', this.currentPage - 1, this.currentPage, this.currentPage + 1, '...', this.lastPage];
+                }
+
+                if (this.currentPage > (totalPages - 4)) {
+                    return [1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+                }
             }
 
             let pages = [];
@@ -53,6 +63,13 @@ export default {
         nextPage () {
             const newPage = Math.min(this.lastPage, this.currentPage + 1);
             this.$emit('change', newPage);
+        },
+        selectPage (page) {
+            if (Number.isNaN(parseInt(page))) {
+                return;
+            }
+
+            this.$emit('change', page);
         }
     }
 };
