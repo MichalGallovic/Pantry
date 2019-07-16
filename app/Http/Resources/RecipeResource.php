@@ -19,6 +19,7 @@ class RecipeResource extends JsonResource
             'name' => $this->name,
             'servings' => $this->servings,
             'preparation_minutes' => $this->preparation_minutes,
+            'description' => $this->description,
             'groceries' => GroceryResource::collection($this->whenLoaded('groceries'))
         ];
     }

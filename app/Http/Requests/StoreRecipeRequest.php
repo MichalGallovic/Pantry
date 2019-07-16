@@ -15,6 +15,7 @@ class StoreRecipeRequest extends ApiRequest
             'name' => 'required',
             'servings' => 'required|numeric|min:1',
             'preparation_minutes' => 'required|numeric',
+            'description' => 'nullable',
             'groceries' => 'required|array',
             'groceries.*.grocery_id' => 'required|numeric',
             'groceries.*.units' => 'required|numeric'

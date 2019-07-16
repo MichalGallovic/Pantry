@@ -34,6 +34,11 @@ mix.js('resources/js/app.js', 'public/js')
 
             ...process.env.NODE_ENV === 'production' ? [purgecss] : []
         ]
+    })
+    .webpackConfig({
+        watchOptions: {
+            ignored: /node_modules/
+        }
     });
 
 mix.disableSuccessNotifications();

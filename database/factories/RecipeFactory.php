@@ -21,6 +21,7 @@ $factory->define(Recipe::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
         'servings' => random_int(1, 4),
+        'description' => $faker->sentence,
         'preparation_minutes' => random_int(3, 20) * 5
     ];
 });
