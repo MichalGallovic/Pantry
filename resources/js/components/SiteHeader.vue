@@ -27,6 +27,11 @@
                 </NavigationListItem>
                 <NavigationListItem text="Shops" route="shops">
                 </NavigationListItem>
+                <li class="py-1 sm:p-0 sm:ml-4">
+                    <router-link :to="{ name: 'settings' }" class="text-base text-gray-800 font-medium sm:text-gray-800 sm:font-medium lg:ml-4">
+                        <span><i class="fas fa-cog text-gray-800"></i></span>
+                    </router-link>
+                </li>
             </ul>
         </nav>
     </header>

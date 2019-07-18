@@ -1,3 +1,5 @@
+const Settings = () => import("./components/Routes/Settings/Settings");
+const PlacesSettings = () => import('./components/Routes/Settings/Places/PlacesSettings');
 const InStock = () => import('./components/Routes/InStock');
 const Recipes = () => import('./components/Routes/Recipes/Recipes');
 const CreateRecipe = () => import('./components/Routes/Recipes/CreateRecipe');
@@ -99,5 +101,17 @@ export default {
             name: 'shops.edit',
             props: true
         },
+        {
+            path: '/settings',
+            component: Settings,
+            name: 'settings',
+            children: [
+                {
+                    path: 'places',
+                    component: PlacesSettings,
+                    name: 'settings.places'
+                }
+            ]
+        }
     ]
 };
