@@ -21,12 +21,15 @@ import InputIcon from './InputIcon';
 export default {
     props: {
         placeholder: {
+            type: String,
             default: "Select option"
         },
         options: {
-            default: () => []
+            type: Array,
+            default: null
         },
         value: {
+            type: [String, Number],
             default: null
         }
     },
