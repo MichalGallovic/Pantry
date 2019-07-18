@@ -15,7 +15,7 @@ class Grocery extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'expiration_days', 'units', 'unit_type', 'price', 'shop_id', 'unit_type_id'
+        'name', 'expiration_days', 'after_open_days','units', 'unit_type', 'price', 'shop_id', 'unit_type_id'
     ];
 
     /**
@@ -49,5 +49,13 @@ class Grocery extends Model
     public function unitType()
     {
         return $this->belongsTo(UnitType::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function places()
+    {
+        return $this->hasMany(Place::class);
     }
 }

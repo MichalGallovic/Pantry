@@ -25,6 +25,15 @@
                     ></TextInput>
                 </div>
                 <div class="mt-2">
+                    <Label class="block">Expiration after open in days</Label>
+                    <Error v-for="(error, i) in errorMessages.after_open_days" :error="error" :key="i"></Error>
+                    <TextInput
+                        v-model="after_open_days"
+                        class="mt-2 w-1/2 block"
+                        placeholder="30"
+                    ></TextInput>
+                </div>
+                <div class="mt-2">
                     <Label class="block">Price</Label>
                     <Error v-for="(error, i) in errorMessages.price" :error="error" :key="i"></Error>
                     <TextInput
@@ -134,6 +143,7 @@ export default {
                 await GroceryRepository.create({
                     name: this.name,
                     expiration_days: this.expiration_days,
+                    after_open_days: this.after_open_days,
                     price: this.price,
                     shop_id: this.shop_id,
                     units: this.units,

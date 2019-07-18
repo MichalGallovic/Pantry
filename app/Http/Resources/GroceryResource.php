@@ -18,6 +18,7 @@ class GroceryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'expiration_days' => $this->expiration_days,
+            'after_open_days' => $this->after_open_days,
             'price' => $this->price,
             'units' => $this->units,
             'unit_type_id' => $this->unit_type_id,
