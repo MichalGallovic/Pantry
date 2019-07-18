@@ -1,5 +1,3 @@
-const Settings = () => import("./components/Routes/Settings/Settings");
-const PlacesSettings = () => import('./components/Routes/Settings/Places/PlacesSettings');
 const InStock = () => import('./components/Routes/InStock');
 const Recipes = () => import('./components/Routes/Recipes/Recipes');
 const CreateRecipe = () => import('./components/Routes/Recipes/CreateRecipe');
@@ -15,6 +13,9 @@ const EditShop = () => import('./components/Routes/Shops/EditShop');
 const ShowGrocery = () => import("./components/Routes/Groceries/ShowGrocery");
 const EditGrocery = () => import('./components/Routes/Groceries/EditGrocery');
 const EditShoppingList = () => import ('./components/Routes/ShoppingList/EditShoppingList');
+const Settings = () => import("./components/Routes/Settings/Settings");
+const PlacesSettings = () => import('./components/Routes/Settings/Places/PlacesSettings');
+const UnitTypesTable = () => import('./components/Routes/Settings/UnitTypes/UnitTypesTable');
 
 export default {
     mode: 'history',
@@ -110,6 +111,11 @@ export default {
                     path: 'places',
                     component: PlacesSettings,
                     name: 'settings.places'
+                },
+                {
+                    path: 'unit-types',
+                    component: UnitTypesTable,
+                    name: 'settings.unit-types'
                 }
             ]
         }

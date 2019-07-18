@@ -5,7 +5,12 @@
             <ul class="mt-2">
                 <li class="text-gray-600">
                     <router-link :to="{ name: 'settings.places' }" class="text-base text-gray-800 font-medium sm:text-gray-800 sm:font-medium">
-                        Places
+                        places
+                    </router-link>
+                </li>
+                <li class="text-gray-600">
+                    <router-link :to="{ name: 'settings.unit-types' }" class="text-base text-gray-800 font-medium sm:text-gray-800 sm:font-medium">
+                        unit_types
                     </router-link>
                 </li>
             </ul>
