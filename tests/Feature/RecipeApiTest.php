@@ -148,6 +148,7 @@ class RecipeApiTest extends ApiTestCase
         $response = $this->delete(route('api.recipes.destroy', $recipe->id));
 
         $this->assertSuccess($response, JsonResponse::HTTP_OK);
+        $this->assertDatabaseMissing('recipes', ['id' => $recipe->id]);
     }
 
     public function test_cannot_delete_unknown_shop()

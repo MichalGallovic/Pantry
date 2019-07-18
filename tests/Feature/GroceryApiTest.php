@@ -99,6 +99,7 @@ class GroceryApiTest extends ApiTestCase
         $response = $this->delete(route('api.groceries.destroy', $grocery->id));
 
         $this->assertSuccess($response, JsonResponse::HTTP_OK);
+        $this->assertSoftDeleted('groceries', ['id' => $grocery->id]);
     }
 
     public function test_cannot_delete_unknown_grocery()

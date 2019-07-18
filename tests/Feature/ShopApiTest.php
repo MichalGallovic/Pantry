@@ -99,6 +99,7 @@ class ShopApiTest extends ApiTestCase
         $response = $this->delete(route('api.shops.destroy', $shop->id));
 
         $this->assertSuccess($response, JsonResponse::HTTP_OK);
+        $this->assertSoftDeleted('shops', ['id' => $shop->id]);
     }
 
     public function test_cannot_delete_unknown_shop()

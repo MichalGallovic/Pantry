@@ -12,8 +12,13 @@ class Place extends Model
     /** @var string */
     const PANTRY = 'pantry';
 
+    /** @var array */
     protected $fillable = [
         'name'
+    ];
+
+    protected $hidden = [
+        'updated_at', 'created_at'
     ];
 
     /**

@@ -66,7 +66,7 @@ class ShoppingListApiTest extends ApiTestCase
     {
         factory(ShoppingList::class)->state('with-items')->create();
         $shoppingList = ShoppingList::with('items')->first();
-        $shoppingList->items = $shoppingList->items->makeHidden(['grocery_id', 'shopping_list_id'])->toArray();
+        $shoppingList['items'] = $shoppingList->items->makeHidden(['grocery_id', 'shopping_list_id'])->toArray();
 
         $response = $this->json('GET', route('api.shopping-lists.show', $shoppingList->id), ['embed' => 'items']);
 

@@ -47,7 +47,7 @@ class PlaceApiController extends ApiController
 
         $place = $this->place->create($attributes);
 
-        return $this->respondWithResource(new PlaceResource($place));
+        return $this->respondWithResource(new PlaceResource($place), JsonResponse::HTTP_CREATED);
     }
 
     /**

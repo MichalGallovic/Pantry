@@ -75,6 +75,6 @@ Route::name('api.')->group(function () {
     Route::get('settings', ['uses' => SettingsApiController::class, 'as' => 'settings.index']);
 
     Route::resource('places', PlaceApiController::class, [
-        'only' => ['index', 'show', 'store', 'update', 'destroy']
+        'only' => ['index', 'store', 'update', 'destroy']
     ]);
 });
