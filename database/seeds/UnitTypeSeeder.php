@@ -39,6 +39,12 @@ class UnitTypeSeeder extends Seeder
             UnitTypeCategory::TEMPERATURE => [
                 UnitType::C,
                 UnitType::F
+            ],
+            UnitTypeCategory::QUANTITY => [
+                UnitType::BOTTLE,
+                UnitType::CAN,
+                UnitType::PACK,
+                UnitType::PIECE
             ]
         ];
 

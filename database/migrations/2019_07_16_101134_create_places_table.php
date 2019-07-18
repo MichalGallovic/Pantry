@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUnitTypesTable extends Migration
+class CreatePlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,20 @@ class CreateUnitTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('unit_types', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('shorthand');
-            $table->enum('category', ['volume', 'weight', 'length', 'temperature', 'quantity']);
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.e
+     * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('unit_types');
+        Schema::dropIfExists('places');
     }
 }

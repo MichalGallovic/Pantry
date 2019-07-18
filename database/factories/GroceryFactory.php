@@ -22,6 +22,7 @@ $factory->define(Grocery::class, function (Faker $faker) {
     return [
         'name' => $faker->name(),
         'expiration_days' => random_int(3, 60),
+        'after_open_days' => random_int(1, 3),
         'units' => random_int(1, 500),
         'unit_type_id' => function () {
             return factory(UnitType::class)->create()->id;

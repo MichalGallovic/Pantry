@@ -8,6 +8,7 @@ final class UnitTypeCategory
     const WEIGHT = 'weight';
     const LENGTH = 'length';
     const TEMPERATURE = 'temperature';
+    const QUANTITY = 'quantity';
 
     /** @var array */
     private static $map = [

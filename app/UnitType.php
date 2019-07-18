@@ -42,6 +42,13 @@ class UnitType extends Model
     // fahrenheit
     const F = 'F';
 
+    // Quantity
+    const BOTTLE = 'bottle';
+    const CAN = 'can';
+    const PACK = 'pack';
+    const PIECE = 'piece';
+
+
     public $timestamps = false;
 
     /**

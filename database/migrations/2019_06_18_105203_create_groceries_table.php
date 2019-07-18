@@ -16,7 +16,8 @@ class CreateGroceriesTable extends Migration
         Schema::create('groceries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('expiration_days');
+            $table->smallInteger('expiration_days');
+            $table->smallInteger('after_open_days');
             $table->decimal('price');
             $table->unsignedBigInteger('shop_id')->nullable();
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
