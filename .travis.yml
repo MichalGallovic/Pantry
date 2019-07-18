@@ -26,7 +26,7 @@ matrix:
           node_js:
               - "node"
           before_script:
-              - yarn
+              - travis_retry yarn
           script:
               - yarn test
 
