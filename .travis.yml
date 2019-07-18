@@ -1,14 +1,17 @@
+dist: xenial
 language: php
 
 php:
     - "7.2"
 
+cache:
+    directories:
+        - $HOME/.composer/cache
+
 before_script:
     - cp .env.travis .env
-    - composer self-update
-    - composer install --no-interaction
-    - php artisan key:generate
-    - php artisan migrate
+    - travis_retry composer self-update
+    - travis_retry composer install --no-interaction
 
 script:
     - vendor/bin/phpunit
