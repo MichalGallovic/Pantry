@@ -4,7 +4,7 @@
         <div>
             <span
                 :class="pageActive(page)"
-                class="inline-flex justify-around cursor-pointer inline-block w-6 h-6 text-center mx-2"
+                class="inline-flex flex-col justify-around cursor-pointer inline-block w-6 h-6 text-center mx-2"
                 @click="selectPage(page)"
                 v-for="page in pages"
             >
