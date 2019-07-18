@@ -5,6 +5,7 @@ import SettingsRepository from './SettingsRepository';
 import ShoppingListRepository from './ShoppingListRepository';
 import ShoppingListItemRepository from './ShoppingListItemRepository';
 import RecipeRepository from './RecipeRepository';
+import PlaceRepository from './PlaceRepository';
 
 const repositories = {
     shop: ShopRepository,
@@ -13,7 +14,8 @@ const repositories = {
     settings: SettingsRepository,
     shoppingList: ShoppingListRepository,
     shoppingListItem: ShoppingListItemRepository,
-    recipe: RecipeRepository
+    recipe: RecipeRepository,
+    place: PlaceRepository
 };
 
 export const RepositoryFactory = {

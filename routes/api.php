@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\GroceryApiController;
+use App\Http\Controllers\Api\PlaceApiController;
 use App\Http\Controllers\Api\RecipeApiController;
 use App\Http\Controllers\Api\SettingsApiController;
 use App\Http\Controllers\Api\ShopApiController;
@@ -72,4 +73,8 @@ Route::name('api.')->group(function () {
     ]);
 
     Route::get('settings', ['uses' => SettingsApiController::class, 'as' => 'settings.index']);
+
+    Route::resource('places', PlaceApiController::class, [
+        'only' => ['index', 'show', 'store', 'update', 'destroy']
+    ]);
 });

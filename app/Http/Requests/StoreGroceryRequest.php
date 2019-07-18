@@ -14,6 +14,7 @@ class StoreGroceryRequest extends ApiRequest
         return [
             'name' => 'required',
             'expiration_days' => 'required|numeric',
+            'after_open_days' => 'required|numeric',
             'price' => 'required|numeric',
             'shop_id' => 'required|numeric',
             'units' => 'required|numeric',
