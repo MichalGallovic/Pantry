@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.9.0",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "lodash": "^4.17.13",
         "portal-vue": "^2.1.5",
         "tailwindcss": "^1.0.4",
